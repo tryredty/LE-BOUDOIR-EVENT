@@ -146,6 +146,7 @@
             font-family: 'Great Vibes', cursive;
             color: var(--rose-poudre);
             margin-left: 5px;
+            font-size: 2rem;
         }
 
         .nav-menu {
@@ -196,7 +197,7 @@
         /* Hero Section */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('image3.jpg') no-repeat center center/cover;
             display: flex;
             align-items: center;
             text-align: center;
@@ -298,6 +299,7 @@
             height: 200px;
             overflow: hidden;
             width: 100%;
+            position: relative;
         }
 
         .service-img img {
@@ -316,12 +318,23 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 220px;
+            min-height: 250px;
         }
 
         .service-content h3 {
             font-size: 1.5rem;
             margin-bottom: 10px;
+        }
+
+        .service-content ul {
+            text-align: left;
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .service-content ul li {
+            margin-bottom: 5px;
+            list-style-type: disc;
         }
 
         /* About Section */
@@ -341,6 +354,17 @@
             flex: 1;
             min-width: 300px;
             text-align: justify;
+            /* Correction de l'espacement */
+            word-spacing: normal;
+            line-height: 1.6;
+            hyphens: auto;
+        }
+
+        .about-text p {
+            margin-bottom: 20px;
+            /* Empêcher la césure indésirable */
+            word-break: keep-all;
+            overflow-wrap: break-word;
         }
 
         .about-image {
@@ -353,8 +377,36 @@
 
         .about-image img {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             display: block;
+        }
+
+        /* Mission Section */
+        .mission-section {
+            background-color: white;
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .mission-container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .mission-item {
+            padding: 30px;
+            border-radius: 10px;
+            background-color: var(--blanc-casse);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .mission-item h3 {
+            color: var(--rose-poudre);
+            margin-bottom: 15px;
         }
 
         /* Réalisation et Coulisses Section */
@@ -419,6 +471,71 @@
         textarea.form-control {
             min-height: 150px;
             resize: vertical;
+        }
+
+        .budget-note {
+            background-color: var(--nude-peche);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .budget-note h4 {
+            color: var(--terracotta);
+            margin-bottom: 10px;
+        }
+
+        /* Partenaires Section - MODIFIÉ */
+        .partners-section {
+            background-color: var(--blanc-casse);
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        .partners-grid {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .partner-item {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 200px;
+            height: 120px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+
+        .partner-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .partner-logo {
+            max-width: 100%;
+            max-height: 100%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            /* Suppression du filtre grayscale et de l'opacité réduite */
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+
+        .partners-thanks {
+            margin-top: 40px;
+            font-style: italic;
+            color: var(--gris-doux);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         /* Réseaux Sociaux */
@@ -598,7 +715,13 @@
             display: block;
         }
 
-        /* Media Queries */
+        /* Media Queries - AMÉLIORÉ */
+        @media (max-width: 1200px) {
+            .hero h1 {
+                font-size: 3.5rem;
+            }
+        }
+
         @media (max-width: 992px) {
             .hero h1 {
                 font-size: 3rem;
@@ -634,6 +757,16 @@
                 padding: 0;
                 margin-bottom: 30px;
             }
+
+            /* Amélioration des logos partenaires sur tablettes */
+            .partners-grid {
+                gap: 30px;
+            }
+            
+            .partner-item {
+                width: 180px;
+                height: 110px;
+            }
         }
 
         @media (max-width: 768px) {
@@ -661,6 +794,92 @@
             
             .video-container {
                 width: 95%;
+            }
+            
+            /* Amélioration des logos partenaires sur mobiles */
+            .partners-grid {
+                gap: 20px;
+            }
+            
+            .partner-item {
+                width: 150px;
+                height: 90px;
+                padding: 10px;
+            }
+
+            /* Amélioration responsive des images de services */
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .service-img {
+                height: 180px;
+            }
+
+            /* Amélioration responsive des réalisations */
+            .realisations-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                gap: 15px;
+            }
+
+            .realisation-item {
+                height: 200px;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero .script-font {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+
+            /* Optimisation des logos partenaires sur petits écrans */
+            .partners-grid {
+                gap: 15px;
+            }
+            
+            .partner-item {
+                width: 130px;
+                height: 80px;
+                padding: 8px;
+            }
+
+            /* Amélioration des images de services sur mobiles */
+            .service-img {
+                height: 160px;
+            }
+
+            /* Ajustement des marges et espacements sur mobiles */
+            section {
+                padding: 60px 0;
+            }
+
+            .mission-item {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            /* Optimisation pour très petits écrans */
+            .partner-item {
+                width: 110px;
+                height: 70px;
+            }
+
+            .realisations-grid {
+                grid-template-columns: 1fr;
             }
         }
     </style>
@@ -698,8 +917,8 @@
         <section class="hero" id="accueil">
             <div class="container hero-content">
                 <span class="script-font">Créateur d'émotions</span>
-                <h1>Transformons vos rêves en moments inoubliables</h1>
-                <p>Décoration et organisation d'événements sur mesure pour toutes vos célébrations</p>
+                <h1>"Transformons vos rêves en moments inoubliables"</h1>
+                <p>Event Planner, Décorateur et Organisateur d'Evénement sur Mésure </p>
                 <a href="#contact" class="btn">Demander un devis</a>
             </div>
         </section>
@@ -715,7 +934,7 @@
                 <div class="services-grid">
                     <div class="service-card">
                         <div class="service-img">
-                            <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1050&q=80" alt="Décoration d'événements">
+                            <img src="image2.jpg" alt="Décoration d'événements">
                         </div>
                         <div class="service-content">
                             <h3>Décoration & Organisation</h3>
@@ -723,15 +942,29 @@
                         </div>
                     </div>
                     
-            
+                    <div class="service-card">
+                        <div class="service-img">
+                            <img src="photo10.jpg" alt="Location d'équipements">
+                        </div>
+                        <div class="service-content">
+                            <h3>Location</h3>
+                            <p>Matériel de qualité pour tous vos événements :</p>
+                            <ul>
+                                <li>Structures décoratives (arche, backdrop...)</li>
+                                <li>Loisirs (château gonflable, aire de jeux, piscine à balles)</li>
+                                <li>Vaisselle élégante</li>
+                                <li>Mobilier design</li>
+                            </ul>
+                        </div>
+                    </div>
                     
                     <div class="service-card">
                         <div class="service-img">
-                            <img src="photo5.jpg" alt="Événements sur mesure">
+                            <img src="image1.jpg" alt="Événements sur mesure">
                         </div>
                         <div class="service-content">
                             <h3>Événements Sur Mesure</h3>
-                            <p>Conception et coordination complète d'événements personnalisés selon vos souhaits et votre budget.</p>
+                            <p>Design et coordination selon vos souhaits et votre budget.</p>
                         </div>
                     </div>
                 </div>
@@ -750,9 +983,41 @@
                         <img src="propos.jpg" alt="Équipe du Boudoir Event">
                     </div>
                     <div class="about-text">
-                        <p>Le Boudoir Event est une agence événementielle passionnée, spécialisée dans la création d'expériences uniques et mémorables. Notre équipe de professionnels talentueux allie créativité, expertise et attention aux détails pour transformer vos visions en réalité.</p>
-                        <p>Notre philosophie est simple : chaque événement est une occasion de créer des émotions durables. Que ce soit un mariage intime, un baptême, un anniversaire ou une baby shower, nous nous engageons à rendre chaque moment spécial et authentique.</p>
-                        <p>Notre approche collaborative nous permet de comprendre vos désirs et de les transcender en une expérience sensorielle complète, où chaque détail compte.</p>
+                        <p><strong>LE BOUDOIR EVENT</strong> est une agence spécialisée dans l'organisation et la décoration d'événements, née de la passion de sublimer les moments importants de la vie.</p>
+                        
+                        <p>Notre mission est de créer des instants uniques, raffinés et mémorables, où chaque détail est pensé pour refléter vos envies et vos émotions.</p>
+                        
+                        <p>Nous vous accompagnons dans la conception, la mise en scène et la réalisation de vos projets - qu'il s'agisse d'un mariage, d'un baptême, d'un anniversaire, d'une journée bien-être, d'un événement d'entreprise ou d'une célébration institutionnelle.</p>
+                        
+                        <p>À travers une approche personnalisée et une écoute attentive, nous transformons vos idées en décors élégants et harmonieux. Location de structures décoratives, mise en place de photobooths, scénographie florale ou encore création d'ambiances thématiques : chaque prestation est conçue avec soin pour faire de votre événement une expérience inoubliable.</p>
+                        
+                        <p><strong>LE BOUDOIR EVENT</strong>, c'est l'art de transformer vos instants en un moment précieux.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mission Section -->
+        <section class="mission-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Notre Engagement</h2>
+                </div>
+                
+                <div class="mission-container">
+                    <div class="mission-item">
+                        <h3>MA MISSION</h3>
+                        <p>« Vous créer un événement où chaque détail reflète vos envies »</p>
+                    </div>
+                    
+                    <div class="mission-item">
+                        <h3>MA PROMESSE</h3>
+                        <p>« Faire de vos instants un moment précieux »</p>
+                    </div>
+                    
+                    <div class="mission-item">
+                        <h3>MA VOLONTÉ</h3>
+                        <p>« Vous offrir sérénité et confiance, en réduisant vos inquiétudes et en augmentant votre tranquillité... pour que votre seule préoccupation soit de profiter pleinement de votre événement »</p>
                     </div>
                 </div>
             </div>
@@ -785,62 +1050,114 @@
                     <p>Remplissez le formulaire ci-dessous et nous vous recontacterons dans les plus brefs délais</p>
                 </div>
                 
+                <div class="budget-note">
+                    <h4>Informations importantes</h4>
+                    <p>Notre minimum de commande est de 750€ pour la décoration.<br>
+                    Nos tarifs pour les mariages commencent à partir de 3000€.</p>
+                </div>
+                
                 <div class="form-container">
-                    <form id="devis-form">
+                    <form id="devis-form" action="https://getform.io/f/[VOTRE_CODE_GETFORM_ICI]" method="POST">
                         <div class="form-group">
                             <label for="nom">Nom</label>
-                            <input type="text" id="nom" class="form-control" required>
+                            <input type="text" id="nom" name="nom" class="form-control" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="prenom">Prénom</label>
-                            <input type="text" id="prenom" class="form-control" required>
+                            <input type="text" id="prenom" name="prenom" class="form-control" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="email">Email</label>
-                            <input type="email" id="email" class="form-control" required>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="telephone">Téléphone</label>
+                            <input type="tel" id="telephone" name="telephone" class="form-control" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="evenement">Type d'événement</label>
-                            <select id="evenement" class="form-control" required>
+                            <select id="evenement" name="evenement" class="form-control" required>
                                 <option value="">Sélectionnez...</option>
                                 <option value="mariage">Mariage</option>
                                 <option value="bapteme">Baptême</option>
                                 <option value="anniversaire">Anniversaire</option>
                                 <option value="baby-shower">Baby Shower</option>
+                                <option value="entreprise">Événement d'entreprise</option>
                                 <option value="autre">Autre</option>
                             </select>
                         </div>
                         
                         <div class="form-group">
                             <label for="date">Date de l'événement</label>
-                            <input type="date" id="date" class="form-control" required>
+                            <input type="date" id="date" name="date" class="form-control" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="lieu">Lieu de l'événement</label>
-                            <input type="text" id="lieu" class="form-control" required>
+                            <input type="text" id="lieu" name="lieu" class="form-control" required>
                         </div>
                         
                         <div class="form-group">
                             <label for="convives">Nombre de convives</label>
-                            <input type="number" id="convives" class="form-control" min="1" required>
+                            <input type="number" id="convives" name="convives" class="form-control" min="1" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="budget">Budget approximatif</label>
+                            <select id="budget" name="budget" class="form-control" required>
+                                <option value="">Sélectionnez...</option>
+                                <option value="750-1500">750-1500€ (sauf mariage)</option>
+                                <option value="1500-2500">1500-2500€ (sauf mariage)</option>
+                                <option value="2500-5000">2500-5000€</option>
+                                <option value="5000+">Plus de 5000€</option>
+                            </select>
                         </div>
                         
                         <div class="form-group">
                             <label for="theme">Thème souhaité</label>
-                            <input type="text" id="theme" class="form-control">
+                            <input type="text" id="theme" name="theme" class="form-control">
                         </div>
                         
                         <div class="form-group">
                             <label for="description">Description de votre événement</label>
-                            <textarea id="description" class="form-control" required></textarea>
+                            <textarea id="description" name="description" class="form-control" required></textarea>
                         </div>
                         
                         <button type="submit" class="btn">Envoyer la demande</button>
                     </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Partenaires Section - MODIFIÉE -->
+        <section class="partners-section">
+            <div class="container">
+                <div class="section-title">
+                    <h2>Nos Partenaires</h2>
+                    <p>Nous travaillons avec les meilleurs pour vous offrir un service d'exception</p>
+                </div>
+                
+                <div class="partners-grid">
+                    <div class="partner-item">
+                        <img src="logo1.png" alt="Partenaire 1" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="logo2.jpg" alt="Partenaire 2" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="logo3.jpg" alt="Partenaire 3" class="partner-logo">
+                    </div>
+                    <div class="partner-item">
+                        <img src="logo4.jpg" alt="Partenaire 4" class="partner-logo">
+                    </div>
+                </div>
+                
+                <div class="partners-thanks">
+                    <p>Nous remercions chaleureusement tous nos partenaires pour leur confiance et leur collaboration qui nous permettent de vous offrir des services de qualité exceptionnelle.</p>
                 </div>
             </div>
         </section>
@@ -957,8 +1274,6 @@
                             <i class="fas fa-search-plus"></i>
                         </div>
                     </div>
-                    
-               
                 </div>
                 
                 <!-- Section des vidéos -->
@@ -1057,8 +1372,9 @@
         
         hamburger.addEventListener('click', function() {
             navMenu.classList.toggle('active');
-            hamburger.innerHTML = navMenu.classList.contains('active') ? 
-                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            hamburger.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
         });
 
         // Navigation et défilement fluide
@@ -1111,11 +1427,11 @@
             showRealisationsPage();
         });
 
-        // Formulaire de contact
+        // Formulaire de contact avec Getform
         document.getElementById('devis-form').addEventListener('submit', function(e) {
-            e.preventDefault();
+            // La soumission se fait directement vers Getform
+            // Vous pouvez ajouter ici un message de confirmation
             alert('Merci pour votre demande ! Nous vous recontacterons très rapidement.');
-            this.reset();
         });
 
         // Changement de style du header au scroll
