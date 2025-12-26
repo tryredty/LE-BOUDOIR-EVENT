@@ -1,0 +1,1157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Le Boudoir Event</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* ===== VARIABLES ET RÉINITIALISATION ===== */
+        :root {
+            --nude-peche: #F5D0C5;
+            --rose-poudre: #E3A8A2;
+            --blanc-casse: #FAF9F6;
+            --gris-doux: #7C7C7C;
+            --terracotta: #9B4F4F;
+            --terracotta-dark: #7A3E3E;
+            --beige: #F5F0E6;
+            --taupe: #8B7D6B;
+            --shadow-light: rgba(155, 79, 79, 0.1);
+            --shadow-medium: rgba(155, 79, 79, 0.2);
+            --shadow-dark: rgba(0, 0, 0, 0.15);
+            
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+            --space-xxl: 8rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 100px;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--blanc-casse);
+            color: var(--gris-doux);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, h5 {
+            font-family: 'Playfair Display', serif;
+            color: var(--terracotta);
+            margin-bottom: var(--space-md);
+            line-height: 1.3;
+        }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.5rem; }
+        h3 { font-size: 2rem; }
+        h4 { font-size: 1.5rem; }
+        h5 { font-size: 1.2rem; }
+
+        .script-font {
+            font-family: 'Great Vibes', cursive;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 var(--space-md);
+        }
+
+        section {
+            padding: var(--space-xl) 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .section-title {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto var(--space-lg);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--rose-poudre), var(--terracotta));
+            margin: var(--space-sm) auto;
+            border-radius: 2px;
+        }
+
+        /* ===== HEADER ===== */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 20px var(--shadow-light);
+            z-index: 1000;
+            padding: 1rem 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        header.scrolled {
+            padding: 0.7rem 0;
+            box-shadow: 0 5px 25px var(--shadow-medium);
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo {
+            position: relative;
+            z-index: 1001;
+        }
+
+        .logo img {
+            height: 90px;
+            width: auto;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 2px 4px var(--shadow-light));
+        }
+
+        header.scrolled .logo img {
+            height: 70px;
+        }
+
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            text-decoration: none;
+            color: var(--gris-doux);
+            font-weight: 500;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-menu a::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(to right, var(--rose-poudre), var(--terracotta));
+            transition: width 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: var(--terracotta);
+        }
+
+        .nav-menu a:hover::before,
+        .nav-menu a.active::before {
+            width: 100%;
+        }
+
+        .nav-menu a.active {
+            color: var(--terracotta);
+            font-weight: 600;
+        }
+
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            color: var(--terracotta);
+            padding: 0.5rem;
+            z-index: 1001;
+            transition: transform 0.3s ease;
+        }
+
+        .hamburger:hover {
+            transform: rotate(90deg);
+        }
+
+        /* ===== BOUTONS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 36px;
+            background: linear-gradient(135deg, var(--terracotta), var(--terracotta-dark));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            cursor: pointer;
+            text-align: center;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 20px var(--shadow-medium);
+            position: relative;
+            overflow: hidden;
+            min-width: 200px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px var(--shadow-medium);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:active {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow-medium);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--terracotta);
+            border: 2px solid var(--terracotta);
+            box-shadow: 0 4px 15px var(--shadow-light);
+        }
+
+        .btn-outline:hover {
+            background: linear-gradient(135deg, var(--terracotta), var(--terracotta-dark));
+            color: white;
+            border-color: transparent;
+        }
+
+        .btn i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 25px;
+            background: white;
+            color: var(--terracotta);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: 2px solid var(--terracotta);
+            margin-bottom: var(--space-lg);
+            box-shadow: 0 4px 15px var(--shadow-light);
+        }
+
+        .btn-back:hover {
+            background: var(--terracotta);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        /* ===== HERO PORTFOLIO ===== */
+        .portfolio-hero {
+            height: 40vh;
+            min-height: 400px;
+            background: var(--beige);
+            display: flex;
+            align-items: center;
+            text-align: center;
+            padding-top: 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .portfolio-hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            padding: 0 var(--space-md);
+        }
+
+        .portfolio-hero h1 {
+            font-size: 4rem;
+            color: var(--terracotta);
+            margin-bottom: var(--space-md);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            line-height: 1.2;
+        }
+
+        .portfolio-hero .lead-text {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-lg);
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            color: var(--gris-doux);
+        }
+
+        /* ===== PORTFOLIO STRUCTURE ===== */
+        .portfolio-events {
+            width: 100%;
+        }
+
+        .event-item {
+            margin-bottom: var(--space-xxl);
+            animation: fadeIn 0.8s ease;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .event-title {
+            text-align: center;
+            margin-bottom: var(--space-lg);
+            padding-bottom: var(--space-md);
+        }
+
+        .event-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: var(--space-sm);
+            color: var(--terracotta);
+        }
+
+        .event-gallery {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        /* Pour les événements avec 2 images */
+        .event-gallery.double {
+            grid-template-columns: repeat(2, 1fr);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .gallery-img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px var(--shadow-light);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .gallery-img:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px var(--shadow-medium);
+        }
+
+        /* ===== LIGHTBOX ===== */
+        .lightbox {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 90vh;
+            border-radius: 10px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            color: white;
+            font-size: 2.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: none;
+            border: none;
+        }
+
+        .lightbox-close:hover {
+            color: var(--nude-peche);
+            transform: scale(1.1);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 20px;
+        }
+
+        .lightbox-prev,
+        .lightbox-next {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: none;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+        }
+
+        .lightbox-prev:hover,
+        .lightbox-next:hover {
+            background: var(--terracotta);
+            transform: scale(1.1);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
+            color: white;
+            padding: 80px 0 30px;
+            width: 100%;
+            position: relative;
+            margin-top: var(--space-xl);
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--rose-poudre), var(--terracotta));
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .footer-section h3 {
+            color: var(--nude-peche);
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 15px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--rose-poudre), var(--terracotta));
+            border-radius: 2px;
+        }
+
+        .footer-section p {
+            margin-bottom: 20px;
+            color: #ccc;
+            line-height: 1.7;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-section p i {
+            color: var(--rose-poudre);
+            font-size: 1.2rem;
+            width: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            width: 100%;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--nude-peche);
+            transform: translateX(5px);
+        }
+
+        .footer-section ul li a i {
+            color: var(--rose-poudre);
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+            font-size: 0.95rem;
+        }
+
+        /* ===== BOUTON WHATSAPP ===== */
+        .whatsapp-float {
+            position: fixed;
+            width: 70px;
+            height: 70px;
+            bottom: 40px;
+            right: 40px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 2.2rem;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 3px solid white;
+            overflow: hidden;
+        }
+
+        .whatsapp-float::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-float:hover::before {
+            left: 100%;
+        }
+
+        /* ===== MEDIA QUERIES ===== */
+        @media (max-width: 1200px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.2rem; }
+            
+            .portfolio-hero h1 {
+                font-size: 3.2rem;
+            }
+            
+            .event-title h2 {
+                font-size: 2.2rem;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                background-color: rgba(255, 255, 255, 0.98);
+                width: 300px;
+                height: 100vh;
+                flex-direction: column;
+                padding: 120px 40px 40px;
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+                backdrop-filter: blur(10px);
+                gap: 0;
+            }
+            
+            .nav-menu.active {
+                right: 0;
+            }
+            
+            .nav-menu li {
+                margin: 0;
+                width: 100%;
+                border-bottom: 1px solid rgba(245, 208, 197, 0.3);
+            }
+            
+            .nav-menu li:last-child {
+                border-bottom: none;
+            }
+            
+            .nav-menu a {
+                display: block;
+                padding: 20px 0;
+                font-size: 1.2rem;
+                text-align: left;
+            }
+            
+            .hamburger {
+                display: block;
+            }
+            
+            .portfolio-hero {
+                height: 35vh;
+                min-height: 350px;
+            }
+            
+            .portfolio-hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .portfolio-hero .lead-text {
+                font-size: 1.3rem;
+            }
+            
+            .event-gallery {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .event-gallery.double {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            section {
+                padding: 60px 0;
+            }
+            
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.6rem; }
+            
+            .portfolio-hero {
+                height: 30vh;
+                min-height: 300px;
+                padding-top: 100px;
+            }
+            
+            .portfolio-hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .portfolio-hero .lead-text {
+                font-size: 1.2rem;
+            }
+            
+            .event-gallery {
+                grid-template-columns: 1fr;
+                max-width: 500px;
+                margin-left: auto;
+                margin-right: auto;
+            }
+            
+            .event-gallery.double {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-img {
+                height: 200px;
+            }
+            
+            .lightbox-prev,
+            .lightbox-next {
+                width: 50px;
+                height: 50px;
+                font-size: 1.5rem;
+            }
+            
+            .whatsapp-float {
+                width: 60px;
+                height: 60px;
+                bottom: 30px;
+                right: 30px;
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .container {
+                width: 95%;
+                padding: 0 15px;
+            }
+            
+            .portfolio-hero h1 {
+                font-size: 2rem;
+            }
+            
+            .portfolio-hero .lead-text {
+                font-size: 1.1rem;
+            }
+            
+            .event-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .btn-back {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .portfolio-hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .portfolio-hero {
+                min-height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header avec Navigation -->
+    <header>
+        <div class="container header-container">
+            <a href="index.html" class="logo"><img src="logo.png" alt="Le Boudoir Event" loading="lazy"></a>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="index.html#esprit">L'esprit du Boudoir</a></li>
+                <li><a href="index.html#design">Design & Coordination</a></li>
+                <li><a href="portfolio.html" class="active">Portfolio</a></li>
+                <li><a href="index.html#contact">Discutons</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <!-- Hero Portfolio -->
+    <section class="portfolio-hero">
+        <div class="container portfolio-hero-content">
+            <h1>Portfolio</h1>
+            <p class="lead-text">Découvrez nos plus belles réalisations et laissez-vous inspirer par nos créations d'événements uniques et mémorables.</p>
+            <a href="index.html" class="btn-back"><i class="fas fa-arrow-left"></i> Retour à l'accueil</a>
+        </div>
+    </section>
+
+    <!-- Section Portfolio -->
+    <section id="portfolio">
+        <div class="container">
+            <div class="section-title">
+                <h2>Nos Réalisations</h2>
+                <p>Explorez nos événements organisés</p>
+            </div>
+            
+            <!-- Contenu Portfolio -->
+            <div class="portfolio-events">
+                
+                <!-- Pique-nique Bloom -->
+                <div class="event-item">
+                    <div class="event-title">
+                        <h2>Pique-nique Bloom</h2>
+                    </div>
+                    <div class="event-gallery">
+                        <img src="portfolio4.jpeg" alt="Pique-nique Bloom 1" class="gallery-img" loading="lazy">
+                        <img src="portfolio3.jpeg" alt="Pique-nique Bloom 2" class="gallery-img" loading="lazy">
+                        <img src="portfolio2.jpeg" alt="Pique-nique Bloom 3" class="gallery-img" loading="lazy">
+                        <img src="portfolio1.jpeg" alt="Pique-nique Bloom 4" class="gallery-img" loading="lazy">
+                    </div>
+                </div>
+                
+                <!-- Baptême de Lily Joy -->
+                <div class="event-item">
+                    <div class="event-title">
+                        <h2>Baptême de Lily Joy</h2>
+                    </div>
+                    <div class="event-gallery">
+                        <img src="portfolio8.jpeg" alt="Baptême de Lily Joy 1" class="gallery-img" loading="lazy">
+                        <img src="portfolio7.jpeg" alt="Baptême de Lily Joy 2" class="gallery-img" loading="lazy">
+                        <img src="portfolio6.jpeg" alt="Baptême de Lily Joy 3" class="gallery-img" loading="lazy">
+                        <img src="portfolio5.jpeg" alt="Baptême de Lily Joy 4" class="gallery-img" loading="lazy">
+                    </div>
+                </div>
+                
+                <!-- Mariage Taslima & Nicolas -->
+                <div class="event-item">
+                    <div class="event-title">
+                        <h2>Mariage Taslima & Nicolas</h2>
+                    </div>
+                    <div class="event-gallery">
+                        <img src="portfolio39.jpeg" alt="Mariage Taslima & Nicolas 1" class="gallery-img" loading="lazy">
+                        <img src="portfolio38.jpeg" alt="Mariage Taslima & Nicolas 2" class="gallery-img" loading="lazy">
+                        <img src="portfolio37.jpeg" alt="Mariage Taslima & Nicolas 3" class="gallery-img" loading="lazy">
+                        <img src="portfolio36.jpeg" alt="Mariage Taslima & Nicolas 4" class="gallery-img" loading="lazy">
+                    </div>
+                </div>
+                
+                <!-- Anniversaire Veuve-Cliquot -->
+                <div class="event-item">
+                    <div class="event-title">
+                        <h2>Anniversaire Veuve-Cliquot</h2>
+                    </div>
+                    <div class="event-gallery">
+                        <img src="portfolio15.jpeg" alt="Anniversaire Veuve-Cliquot 1" class="gallery-img" loading="lazy">
+                        <img src="portfolio14.jpeg" alt="Anniversaire Veuve-Cliquot 2" class="gallery-img" loading="lazy">
+                        <img src="portfolio13.jpeg" alt="Anniversaire Veuve-Cliquot 3" class="gallery-img" loading="lazy">
+                        <img src="portfolio12.jpeg" alt="Anniversaire Veuve-Cliquot 4" class="gallery-img" loading="lazy">
+                    </div>
+                </div>
+                
+                <!-- Anniversaire de Karen -->
+                <div class="event-item">
+                    <div class="event-title">
+                        <h2>Anniversaire de Karen</h2>
+                    </div>
+                    <div class="event-gallery">
+                        <img src="portfolio19.jpeg" alt="Anniversaire de Karen 1" class="gallery-img" loading="lazy">
+                        <img src="portfolio18.jpeg" alt="Anniversaire de Karen 2" class="gallery-img" loading="lazy">
+                        <img src="portfolio17.jpeg" alt="Anniversaire de Karen 3" class="gallery-img" loading="lazy">
+                        <img src="portfolio16.jpeg" alt="Anniversaire de Karen 4" class="gallery-img" loading="lazy">
+                    </div>
+                </div>
+                
+                <!-- Blessing Way de Maïté -->
+                <div class="event-item">
+                    <div class="event-title">
+                        <h2>Blessing Way de Maïté</h2>
+                    </div>
+                    <div class="event-gallery">
+                        <img src="portfolio20.jpeg" alt="Blessing Way de Maïté 1" class="gallery-img" loading="lazy">
+                        <img src="portfolio23.jpeg" alt="Blessing Way de Maïté 2" class="gallery-img" loading="lazy">
+                        <img src="portfolio22.jpeg" alt="Blessing Way de Maïté 3" class="gallery-img" loading="lazy">
+                        <img src="portfolio21.jpeg" alt="Blessing Way de Maïté 4" class="gallery-img" loading="lazy">
+                    </div>
+                </div>
+                
+                <!-- Graduation CFA IUTS -->
+                <div class="event-item">
+                    <div class="event-title">
+                        <h2>Graduation CFA IUTS</h2>
+                    </div>
+                    <div class="event-gallery">
+                        <img src="portfolio40.jpeg" alt="Graduation CFA IUTS 1" class="gallery-img" loading="lazy">
+                        <img src="photo2.jpg" alt="Graduation CFA IUTS 2" class="gallery-img" loading="lazy">
+                        <img src="portfolio41.jpeg" alt="Graduation CFA IUTS 3" class="gallery-img" loading="lazy">
+                        <img src="photo1.jpg" alt="Graduation CFA IUTS 4" class="gallery-img" loading="lazy">
+                    </div>
+                </div>
+                
+                <!-- Nuit de noces de Patricia & Rully -->
+                <div class="event-item">
+                    <div class="event-title">
+                        <h2>Nuit de noces de Patricia & Rully</h2>
+                    </div>
+                    <div class="event-gallery">
+                        <img src="portfolio27.jpeg" alt="Nuit de noces de Patricia & Rully 1" class="gallery-img" loading="lazy">
+                        <img src="portfolio26.jpeg" alt="Nuit de noces de Patricia & Rully 2" class="gallery-img" loading="lazy">
+                        <img src="portfolio25.jpeg" alt="Nuit de noces de Patricia & Rully 3" class="gallery-img" loading="lazy">
+                        <img src="portfolio24.jpeg" alt="Nuit de noces de Patricia & Rully 4" class="gallery-img" loading="lazy">
+                    </div>
+                </div>
+                
+                <!-- Festival Terre de Blues 2025 -->
+                <div class="event-item">
+                    <div class="event-title">
+                        <h2>Festival Terre de Blues 2025</h2>
+                    </div>
+                    <div class="event-gallery double">
+                        <img src="portfolio29.jpeg" alt="Festival Terre de Blues 2025 1" class="gallery-img" loading="lazy">
+                        <img src="portfolio28.jpeg" alt="Festival Terre de Blues 2025 2" class="gallery-img" loading="lazy">
+                    </div>
+                </div>
+                
+                <!-- BBLé Festival -->
+                <div class="event-item">
+                    <div class="event-title">
+                        <h2>BBLé Festival</h2>
+                    </div>
+                    <div class="event-gallery double">
+                        <img src="portfolio31.jpeg" alt="BBLé Festival 1" class="gallery-img" loading="lazy">
+                        <img src="portfolio30.jpeg" alt="BBLé Festival 2" class="gallery-img" loading="lazy">
+                    </div>
+                </div>
+                
+                <!-- Région Guadeloupe - Soirée du personnel -->
+                <div class="event-item">
+                    <div class="event-title">
+                        <h2>Région Guadeloupe - Soirée du personnel</h2>
+                    </div>
+                    <div class="event-gallery double">
+                        <img src="portfolio33.jpeg" alt="Région Guadeloupe - Soirée du personnel 1" class="gallery-img" loading="lazy">
+                        <img src="portfolio32.jpeg" alt="Région Guadeloupe - Soirée du personnel 2" class="gallery-img" loading="lazy">
+                    </div>
+                </div>
+                
+                <!-- Déjeuner champêtre Coco Miel -->
+                <div class="event-item">
+                    <div class="event-title">
+                        <h2>Déjeuner champêtre Coco Miel</h2>
+                    </div>
+                    <div class="event-gallery double">
+                        <img src="portfolio34.jpeg" alt="Déjeuner champêtre Coco Miel 1" class="gallery-img" loading="lazy">
+                        <img src="portfolio35.jpeg" alt="Déjeuner champêtre Coco Miel 2" class="gallery-img" loading="lazy">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" id="lightboxClose">&times;</button>
+        <div class="lightbox-nav">
+            <button class="lightbox-prev" id="lightboxPrev"><i class="fas fa-chevron-left"></i></button>
+            <button class="lightbox-next" id="lightboxNext"><i class="fas fa-chevron-right"></i></button>
+        </div>
+        <div class="lightbox-content">
+            <img class="lightbox-img" id="lightboxImage" src="" alt="">
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container footer-container">
+            <div class="footer-section">
+                <h3>Le Boudoir Event</h3>
+                <p>Votre partenaire pour des événements exceptionnels et mémorables.</p>
+            </div>
+            
+            <div class="footer-section footer-contact">
+                <h3>Contact</h3>
+                <p><i class="fas fa-phone"></i> 06 90 53 63 09</p>
+                <p><i class="fas fa-envelope"></i> Contact@leboudoirevent.com</p>
+                <p><i class="fas fa-map-marker-alt"></i> Région Parisienne et Île-de-France</p>
+            </div>
+            
+            <div class="footer-section">
+                <h3>Liens rapides</h3>
+                <ul>
+                    <li><a href="index.html"><i class="fas fa-chevron-right"></i> Accueil</a></li>
+                    <li><a href="index.html#esprit"><i class="fas fa-chevron-right"></i> L'esprit du Boudoir</a></li>
+                    <li><a href="index.html#design"><i class="fas fa-chevron-right"></i> Design & Coordination</a></li>
+                    <li><a href="portfolio.html"><i class="fas fa-chevron-right"></i> Portfolio</a></li>
+                    <li><a href="index.html#contact"><i class="fas fa-chevron-right"></i> Discutons</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="container footer-bottom">
+            <p>&copy; 2023 Le Boudoir Event. Tous droits réservés.</p>
+        </div>
+    </footer>
+
+    <!-- Bouton WhatsApp -->
+    <a href="https://wa.me/33690536309" class="whatsapp-float" target="_blank" aria-label="Contactez-nous sur WhatsApp">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // ===== MENU HAMBURGER =====
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('navMenu');
+        
+        hamburger.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
+            hamburger.innerHTML = navMenu.classList.contains('active') 
+                ? '<i class="fas fa-times"></i>' 
+                : '<i class="fas fa-bars"></i>';
+            
+            // Empêcher le défilement du body lorsque le menu est ouvert
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        });
+
+        // ===== HEADER SCROLL =====
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // ===== LIGHTBOX =====
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImage = document.getElementById('lightboxImage');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+        
+        // Récupérer toutes les images de la galerie
+        const galleryImages = document.querySelectorAll('.gallery-img');
+        let currentImageIndex = 0;
+        let imagesArray = [];
+        
+        // Initialiser le tableau d'images
+        galleryImages.forEach((img, index) => {
+            imagesArray.push({
+                src: img.src,
+                alt: img.alt
+            });
+            
+            // Ajouter un événement de clic à chaque image
+            img.addEventListener('click', function() {
+                currentImageIndex = index;
+                openLightbox();
+            });
+        });
+        
+        function openLightbox() {
+            lightboxImage.src = imagesArray[currentImageIndex].src;
+            lightboxImage.alt = imagesArray[currentImageIndex].alt;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+        
+        // Fermer la lightbox
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', function(e) {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+        
+        // Navigation lightbox
+        lightboxPrev.addEventListener('click', function() {
+            if (currentImageIndex > 0) {
+                currentImageIndex--;
+            } else {
+                currentImageIndex = imagesArray.length - 1;
+            }
+            lightboxImage.src = imagesArray[currentImageIndex].src;
+            lightboxImage.alt = imagesArray[currentImageIndex].alt;
+        });
+        
+        lightboxNext.addEventListener('click', function() {
+            if (currentImageIndex < imagesArray.length - 1) {
+                currentImageIndex++;
+            } else {
+                currentImageIndex = 0;
+            }
+            lightboxImage.src = imagesArray[currentImageIndex].src;
+            lightboxImage.alt = imagesArray[currentImageIndex].alt;
+        });
+        
+        // Navigation au clavier
+        document.addEventListener('keydown', function(e) {
+            if (!lightbox.classList.contains('active')) return;
+            
+            if (e.key === 'Escape') {
+                closeLightbox();
+            } else if (e.key === 'ArrowLeft') {
+                lightboxPrev.click();
+            } else if (e.key === 'ArrowRight') {
+                lightboxNext.click();
+            }
+        });
+        
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+        
+        // ===== ANIMATION AU SCROLL =====
+        function animateOnScroll() {
+            const fadeElements = document.querySelectorAll('.event-item');
+            fadeElements.forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const isVisible = rect.top <= window.innerHeight * 0.85;
+                
+                if (isVisible) {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }
+            });
+        }
+        
+        // Initialiser l'animation
+        document.querySelectorAll('.event-item').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.8s ease, transform 0.8s ease';
+        });
+        
+        window.addEventListener('scroll', animateOnScroll);
+        window.addEventListener('load', animateOnScroll);
+    </script>
+</body>
+</html>
