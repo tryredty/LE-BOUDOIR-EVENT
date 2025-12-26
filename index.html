@@ -5,15 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Le Boudoir Event - Agence Événementielle</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Great+Vibes&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
-        /* Variables et réinitialisation */
+        /* ===== VARIABLES ET RÉINITIALISATION ===== */
         :root {
             --nude-peche: #F5D0C5;
             --rose-poudre: #E3A8A2;
             --blanc-casse: #FAF9F6;
             --gris-doux: #7C7C7C;
             --terracotta: #9B4F4F;
+            --terracotta-dark: #7A3E3E;
+            --beige: #F5F0E6;
+            --taupe: #8B7D6B;
+            --shadow-light: rgba(155, 79, 79, 0.1);
+            --shadow-medium: rgba(155, 79, 79, 0.2);
+            --shadow-dark: rgba(0, 0, 0, 0.15);
+            
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+            --space-xxl: 8rem;
         }
 
         * {
@@ -24,22 +37,28 @@
 
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: 100px;
         }
 
         body {
             font-family: 'Montserrat', sans-serif;
             background-color: var(--blanc-casse);
             color: var(--gris-doux);
-            line-height: 1.6;
+            line-height: 1.7;
             overflow-x: hidden;
         }
 
         h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
             color: var(--terracotta);
-            margin-bottom: 20px;
-            text-align: center;
+            margin-bottom: var(--space-md);
+            line-height: 1.3;
         }
+
+        h1 { font-size: 3.5rem; }
+        h2 { font-size: 2.5rem; }
+        h3 { font-size: 1.8rem; }
+        h4 { font-size: 1.4rem; }
 
         .script-font {
             font-family: 'Great Vibes', cursive;
@@ -49,23 +68,35 @@
             width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 15px;
+            padding: 0 var(--space-md);
         }
 
         section {
-            padding: 80px 0;
+            padding: var(--space-xl) 0;
             display: flex;
             flex-direction: column;
             align-items: center;
+            position: relative;
         }
 
         .section-title {
             text-align: center;
             max-width: 800px;
-            margin: 0 auto 40px;
+            margin: 0 auto var(--space-lg);
+            position: relative;
         }
 
-        /* Loader */
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(to right, var(--rose-poudre), var(--terracotta));
+            margin: var(--space-sm) auto;
+            border-radius: 2px;
+        }
+
+        /* ===== LOADER AMÉLIORÉ ===== */
         #loader {
             position: fixed;
             top: 0;
@@ -90,13 +121,13 @@
         }
 
         .loader-spinner {
-            width: 60px;
-            height: 60px;
+            width: 80px;
+            height: 80px;
             border: 5px solid var(--nude-peche);
             border-top: 5px solid var(--terracotta);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
-            margin-bottom: 20px;
+            animation: spin 1.5s linear infinite;
+            margin-bottom: var(--space-md);
         }
 
         @keyframes spin {
@@ -104,76 +135,78 @@
             100% { transform: rotate(360deg); }
         }
 
-        .loader-content h2 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-
-        .loader-content p {
-            font-size: 1.2rem;
-            color: var(--rose-poudre);
-        }
-
-        /* Header et Navigation */
+        /* ===== HEADER ET NAVIGATION AMÉLIORÉS ===== */
         header {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(255, 255, 255, 0.95);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            background-color: rgba(255, 255, 255, 0.98);
+            box-shadow: 0 2px 20px var(--shadow-light);
             z-index: 1000;
-            padding: 15px 0;
-            transition: all 0.3s ease;
+            padding: 1rem 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        header.scrolled {
+            padding: 0.7rem 0;
+            box-shadow: 0 5px 25px var(--shadow-medium);
         }
 
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
         }
 
         .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            color: var(--terracotta);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
+            position: relative;
+            z-index: 1001;
         }
 
-        .logo span {
-            font-family: 'Great Vibes', cursive;
-            color: var(--rose-poudre);
-            margin-left: 5px;
-            font-size: 2rem;
+        .logo img {
+            height: 90px;
+            width: auto;
+            transition: all 0.3s ease;
+            filter: drop-shadow(0 2px 4px var(--shadow-light));
+        }
+
+        header.scrolled .logo img {
+            height: 70px;
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
+            gap: 2.5rem;
+            align-items: center;
         }
 
         .nav-menu li {
-            margin-left: 30px;
+            position: relative;
         }
 
         .nav-menu a {
             text-decoration: none;
             color: var(--gris-doux);
             font-weight: 500;
-            transition: color 0.3s ease;
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
             position: relative;
+            padding: 0.5rem 0;
         }
 
-        .nav-menu a:after {
+        .nav-menu a::before {
             content: '';
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--terracotta);
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            background: linear-gradient(to right, var(--rose-poudre), var(--terracotta));
             transition: width 0.3s ease;
         }
 
@@ -181,8 +214,14 @@
             color: var(--terracotta);
         }
 
-        .nav-menu a:hover:after {
+        .nav-menu a:hover::before,
+        .nav-menu a.active::before {
             width: 100%;
+        }
+
+        .nav-menu a.active {
+            color: var(--terracotta);
+            font-weight: 600;
         }
 
         .hamburger {
@@ -190,554 +229,993 @@
             cursor: pointer;
             background: none;
             border: none;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: var(--terracotta);
+            padding: 0.5rem;
+            z-index: 1001;
+            transition: transform 0.3s ease;
         }
 
-        /* Hero Section */
+        .hamburger:hover {
+            transform: rotate(90deg);
+        }
+
+        /* ===== HERO SECTION AMÉLIORÉE ===== */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('image3.jpg') no-repeat center center/cover;
+            min-height: 800px;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('image3.jpg') no-repeat center center/cover;
             display: flex;
             align-items: center;
             text-align: center;
             color: white;
-            padding-top: 80px;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            color: white;
-            margin-bottom: 20px;
-            opacity: 0;
-            animation: fadeIn 1s forwards 0.5s;
-        }
-
-        .hero p {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            opacity: 0;
-            animation: fadeIn 1s forwards 1s;
-        }
-
-        .hero .script-font {
-            font-size: 2.5rem;
-            color: var(--nude-peche);
-            display: block;
-            margin-bottom: 10px;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Boutons */
-        .btn {
-            display: inline-block;
-            padding: 12px 30px;
-            background-color: var(--terracotta);
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            border: 2px solid var(--terracotta);
-            cursor: pointer;
-            text-align: center;
-        }
-
-        .btn:hover {
-            background-color: transparent;
-            color: var(--terracotta);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            color: var(--terracotta);
-            margin-left: 15px;
-        }
-
-        .btn-outline:hover {
-            background-color: var(--terracotta);
-            color: white;
-        }
-
-        /* Services Section */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-            width: 100%;
-        }
-
-        .service-card {
-            background-color: white;
-            border-radius: 10px;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .service-img {
-            height: 200px;
-            overflow: hidden;
-            width: 100%;
+            padding-top: 120px;
             position: relative;
-        }
-
-        .service-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .service-card:hover .service-img img {
-            transform: scale(1.1);
-        }
-
-        .service-content {
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 250px;
-        }
-
-        .service-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        .service-content ul {
-            text-align: left;
-            margin-top: 10px;
-            padding-left: 20px;
-        }
-
-        .service-content ul li {
-            margin-bottom: 5px;
-            list-style-type: disc;
-        }
-
-        /* About Section */
-        .about {
-            background-color: var(--nude-peche);
-        }
-
-        .about-container {
-            display: flex;
-            align-items: center;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-        }
-
-        .about-text {
-            flex: 1;
-            min-width: 300px;
-            text-align: justify;
-            /* Correction de l'espacement */
-            word-spacing: normal;
-            line-height: 1.6;
-            hyphens: auto;
-        }
-
-        .about-text p {
-            margin-bottom: 20px;
-            /* Empêcher la césure indésirable */
-            word-break: keep-all;
-            overflow-wrap: break-word;
-        }
-
-        .about-image {
-            flex: 1;
-            min-width: 300px;
-            border-radius: 10px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .about-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* Mission Section */
-        .mission-section {
-            background-color: white;
-            text-align: center;
-            padding: 60px 0;
-        }
-
-        .mission-container {
-            display: flex;
-            flex-direction: column;
-            gap: 40px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .mission-item {
-            padding: 30px;
-            border-radius: 10px;
-            background-color: var(--blanc-casse);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        }
-
-        .mission-item h3 {
-            color: var(--rose-poudre);
-            margin-bottom: 15px;
-        }
-
-        /* Réalisation et Coulisses Section */
-        .realisation-preview {
-            text-align: center;
-            background-color: white;
-            padding: 50px 0;
-        }
-
-        .video-container {
-            position: relative;
-            width: 80%;
-            max-width: 800px;
-            margin: 0 auto 30px;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .video-container video {
-            width: 100%;
-            border-radius: 15px;
-        }
-
-        /* Formulaire de Contact */
-        .contact {
-            background-color: white;
-            width: 100%;
-        }
-
-        .form-container {
-            width: 100%;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-            width: 100%;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 500;
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            font-family: 'Montserrat', sans-serif;
-            transition: border-color 0.3s ease;
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--terracotta);
-        }
-
-        textarea.form-control {
-            min-height: 150px;
-            resize: vertical;
-        }
-
-        .budget-note {
-            background-color: var(--nude-peche);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 30px 0;
-            text-align: center;
-        }
-
-        .budget-note h4 {
-            color: var(--terracotta);
-            margin-bottom: 10px;
-        }
-
-        /* Partenaires Section - MODIFIÉ */
-        .partners-section {
-            background-color: var(--blanc-casse);
-            padding: 60px 0;
-            text-align: center;
-        }
-
-        .partners-grid {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        .partner-item {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 200px;
-            height: 120px;
-            padding: 15px;
-            background-color: white;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease;
-        }
-
-        .partner-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .partner-logo {
-            max-width: 100%;
-            max-height: 100%;
-            width: auto;
-            height: auto;
-            object-fit: contain;
-            /* Suppression du filtre grayscale et de l'opacité réduite */
-            filter: grayscale(0%);
-            opacity: 1;
-        }
-
-        .partners-thanks {
-            margin-top: 40px;
-            font-style: italic;
-            color: var(--gris-doux);
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Réseaux Sociaux */
-        .social-section {
-            background-color: var(--nude-peche);
-            text-align: center;
-            padding: 50px 0;
-            width: 100%;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .social-icons a {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            background-color: var(--terracotta);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            transform: translateY(-5px);
-            background-color: var(--rose-poudre);
-        }
-
-        /* Footer */
-        footer {
-            background-color: #333;
-            color: white;
-            padding: 50px 0 20px;
-            width: 100%;
-        }
-
-        .footer-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 30px;
-        }
-
-        .footer-section {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-        }
-
-        .footer-section h3 {
-            color: var(--nude-peche);
-            margin-bottom: 20px;
-        }
-
-        .footer-contact p {
-            margin-bottom: 10px;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 30px;
-            margin-top: 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        /* Bouton WhatsApp */
-        .whatsapp-float {
-            position: fixed;
-            width: 60px;
-            height: 60px;
-            bottom: 30px;
-            right: 30px;
-            background-color: #25d366;
-            color: white;
-            border-radius: 50%;
-            text-align: center;
-            font-size: 2rem;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            z-index: 100;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.1);
-            background-color: #128c7e;
-        }
-
-        /* Page Réalisations */
-        #realisations-page {
-            display: none;
-            padding-top: 100px;
-        }
-
-        .realisations-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 25px;
-            margin: 40px 0;
-            width: 100%;
-        }
-
-        .realisation-item {
-            border-radius: 10px;
-            overflow: hidden;
-            position: relative;
-            height: 250px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .realisation-item img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .realisation-item:hover img {
-            transform: scale(1.1);
-        }
-
-        .realisation-overlay {
+        .hero::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(155, 79, 79, 0.8);
+            background: radial-gradient(circle at center, transparent 0%, rgba(0,0,0,0.4) 100%);
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+            padding: 0 var(--space-md);
+        }
+
+        .hero-badge {
+            width: 380px;
+            height: auto;
+            display: inline-block;
+            margin: var(--space-sm) 0 var(--space-md);
+            filter: brightness(1.08) saturate(1.1) drop-shadow(0 0 20px rgba(255,255,255,0.7)) drop-shadow(0 8px 25px rgba(155, 79, 79, 0.3));
+            border-radius: 12px;
+            animation: pulse 3s infinite ease-in-out;
+            transition: transform 0.3s ease;
+        }
+
+        .hero-badge:hover {
+            transform: scale(1.02);
+        }
+
+        @keyframes pulse {
+            0% { filter: brightness(1.08) saturate(1.1) drop-shadow(0 0 20px rgba(255,255,255,0.7)) drop-shadow(0 8px 25px rgba(155, 79, 79, 0.3)); }
+            50% { filter: brightness(1.12) saturate(1.15) drop-shadow(0 0 25px rgba(255,255,255,0.8)) drop-shadow(0 10px 30px rgba(155, 79, 79, 0.4)); }
+            100% { filter: brightness(1.08) saturate(1.1) drop-shadow(0 0 20px rgba(255,255,255,0.7)) drop-shadow(0 8px 25px rgba(155, 79, 79, 0.3)); }
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            color: white;
+            margin-bottom: var(--space-md);
+            opacity: 0;
+            animation: fadeInUp 1s forwards 0.5s;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            line-height: 1.2;
+        }
+
+        .hero .lead-text {
+            font-size: 1.5rem;
+            margin-bottom: var(--space-lg);
+            opacity: 0;
+            animation: fadeInUp 1s forwards 1s;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .hero .script-font {
+            font-size: 3.2rem;
+            color: var(--nude-peche);
+            display: block;
+            margin-top: var(--space-sm);
+            margin-bottom: var(--space-sm);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            animation: fadeIn 1s forwards 0.3s;
+            letter-spacing: 1px;
+        }
+
+        .hero-cta-group {
+            display: flex;
+            gap: var(--space-md);
+            margin-top: var(--space-lg);
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeInUp 1s forwards 1.5s;
+        }
+
+        @keyframes fadeInUp {
+            from { 
+                opacity: 0; 
+                transform: translateY(40px); 
+            }
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* ===== BOUTONS AMÉLIORÉS ===== */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 36px;
+            background: linear-gradient(135deg, var(--terracotta), var(--terracotta-dark));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid transparent;
+            cursor: pointer;
+            text-align: center;
+            font-size: 1.1rem;
+            letter-spacing: 0.5px;
+            box-shadow: 0 8px 20px var(--shadow-medium);
+            position: relative;
+            overflow: hidden;
+            min-width: 200px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px var(--shadow-medium);
+        }
+
+        .btn:hover::before {
+            left: 100%;
+        }
+
+        .btn:active {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px var(--shadow-medium);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--terracotta);
+            border: 2px solid var(--terracotta);
+            box-shadow: 0 4px 15px var(--shadow-light);
+        }
+
+        .btn-outline:hover {
+            background: linear-gradient(135deg, var(--terracotta), var(--terracotta-dark));
+            color: white;
+            border-color: transparent;
+        }
+
+        .btn i {
+            margin-right: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* ===== NOUVELLE SECTION : NOTRE VISION ===== */
+        .vision-section {
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .realisation-item:hover .realisation-overlay {
-            opacity: 1;
-        }
-
-        .realisation-overlay i {
+            text-align: center;
             color: white;
-            font-size: 2.5rem;
+            position: relative;
+            padding: var(--space-xl) 0;
+            background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('propos.jpg') no-repeat center center/cover;
+            width: 100%;
         }
 
-        /* Section vidéos */
-        .videos-section {
-            padding: 60px 0;
-            background-color: var(--blanc-casse);
+        .vision-section .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            width: 100%;
         }
 
-        .videos-grid {
+        .vision-content {
+            max-width: 900px;
+            padding: 60px 40px;
+            background: rgba(255, 255, 255, 0.88);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            z-index: 2;
+            margin: 0 auto;
+        }
+
+        .vision-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--terracotta);
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .vision-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(to right, var(--rose-poudre), var(--terracotta));
+            border-radius: 2px;
+        }
+
+        .vision-intro {
+            font-size: 1.3rem;
+            color: var(--gris-doux);
+            margin-bottom: 40px;
+            font-style: italic;
+            line-height: 1.8;
+        }
+
+        .vision-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 30px;
+            text-align: left;
+        }
+
+        .vision-item {
+            padding: 25px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px var(--shadow-light);
+            border-left: 4px solid var(--terracotta);
+            transition: all 0.4s ease;
+        }
+
+        .vision-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px var(--shadow-medium);
+        }
+
+        .vision-item h4 {
+            color: var(--terracotta);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .vision-item h4 i {
+            color: var(--rose-poudre);
+        }
+
+        .vision-item p {
+            color: var(--gris-doux);
+            line-height: 1.6;
+        }
+
+        /* ===== DESIGN & COORDINATION SECTION (NOUVEAU DESIGN) ===== */
+        .design-section {
+            background-color: var(--blanc-casse);
+            padding: var(--space-xl) 0;
+            text-align: center;
+        }
+
+        /* NOUVEAU : Arrière-plans colorés différents pour chaque h3 */
+        .design-card:nth-child(1) h3 {
+            background: linear-gradient(135deg, var(--nude-peche), rgba(245, 208, 197, 0.9));
+            color: var(--terracotta);
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(245, 208, 197, 0.3);
+        }
+
+        .design-card:nth-child(2) h3 {
+            background: linear-gradient(135deg, var(--rose-poudre), rgba(227, 168, 162, 0.9));
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(227, 168, 162, 0.3);
+        }
+
+        .design-card:nth-child(3) h3 {
+            background: linear-gradient(135deg, var(--terracotta), rgba(155, 79, 79, 0.9));
+            color: white;
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(155, 79, 79, 0.3);
+        }
+
+        .design-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
             margin-top: 40px;
             width: 100%;
         }
 
-        .video-card {
-            border-radius: 10px;
+        .design-card {
+            background: white;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 35px var(--shadow-light);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
         }
 
-        .video-card video {
+        .design-card:hover {
+            transform: translateY(-15px);
+            box-shadow: 0 25px 50px var(--shadow-medium);
+        }
+
+        .design-image {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .design-image img {
             width: 100%;
-            display: block;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.7s ease;
         }
 
-        /* Media Queries - AMÉLIORÉ */
+        .design-card:hover .design-image img {
+            transform: scale(1.1);
+        }
+
+        .design-content {
+            padding: 30px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .design-content h3 {
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .design-subtitle {
+            font-size: 1.1rem;
+            color: var(--gris-doux);
+            font-weight: 500;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .design-content p {
+            font-size: 1.1rem;
+            line-height: 1.7;
+            color: var(--gris-doux);
+            text-align: center;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        /* ===== ESPRIT SECTION AMÉLIORÉE ===== */
+        .esprit-section {
+            background-color: white;
+            width: 100%;
+        }
+
+        .esprit-banner {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px var(--shadow-dark);
+            background: linear-gradient(rgba(255,255,255,0.1), rgba(255,255,255,0.1)), url('photo1.jpg') center/cover no-repeat;
+            margin-bottom: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .esprit-banner::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(155, 79, 79, 0.3), rgba(227, 168, 162, 0.2));
+        }
+
+        .esprit-overlay-title {
+            position: relative;
+            z-index: 2;
+            color: white;
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            letter-spacing: 2px;
+            text-align: center;
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            padding: 0 20px;
+        }
+
+        .esprit-rows {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            width: 100%;
+        }
+
+        .esprit-row {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 40px;
+            align-items: center;
+            padding: 40px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 8px 25px var(--shadow-light);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .esprit-row:hover {
+            box-shadow: 0 15px 35px var(--shadow-medium);
+            transform: translateY(-5px);
+        }
+
+        .esprit-row:nth-child(even) {
+            grid-template-columns: 1.5fr 1fr;
+        }
+
+        .esprit-row:nth-child(even) .esprit-image {
+            order: 2;
+        }
+
+        .esprit-row:nth-child(even) .esprit-text {
+            order: 1;
+        }
+
+        .esprit-image {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px var(--shadow-dark);
+            height: 100%;
+            min-height: 300px;
+        }
+
+        .esprit-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.7s ease;
+        }
+
+        .esprit-row:hover .esprit-image img {
+            transform: scale(1.08);
+        }
+
+        .esprit-text {
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 4px solid var(--terracotta);
+        }
+
+        .esprit-text h3 {
+            margin-bottom: 20px;
+            color: var(--terracotta);
+            text-align: left;
+            font-size: 1.8rem;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(227, 168, 162, 0.3);
+        }
+
+        .esprit-text p {
+            text-align: justify;
+            margin-bottom: 15px;
+            line-height: 1.7;
+            color: var(--gris-doux);
+        }
+
+        /* AMÉLIORATION : Texte avec limite de hauteur */
+        .text-content {
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+            position: relative;
+        }
+
+        .text-content.collapsed {
+            max-height: 150px;
+        }
+
+        .text-content.collapsed::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 40px;
+            background: linear-gradient(to bottom, transparent, white);
+            pointer-events: none;
+        }
+
+        .read-more-btn {
+            display: none;
+            background: linear-gradient(135deg, var(--terracotta), var(--terracotta-dark));
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 25px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+            align-self: flex-start;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.95rem;
+        }
+
+        .read-more-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px var(--shadow-medium);
+        }
+
+        /* ===== BOUTON PORTFOLIO (remplace la section) ===== */
+        .portfolio-cta {
+            background: linear-gradient(135deg, var(--nude-peche), rgba(245, 208, 197, 0.8));
+            padding: var(--space-xl) 0;
+            text-align: center;
+            width: 100%;
+        }
+
+        .portfolio-cta .btn {
+            margin-top: var(--space-md);
+        }
+
+        /* ===== FORMULAIRE DE CONTACT AMÉLIORÉ ===== */
+        .contact-section {
+            background: linear-gradient(135deg, var(--beige), #F5F0E6);
+            padding: var(--space-xxl) 0;
+            position: relative;
+        }
+
+        .contact-intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto var(--space-xl);
+        }
+
+        .contact-intro h2 {
+            font-size: 3.5rem;
+            color: var(--terracotta);
+            margin-bottom: var(--space-md);
+        }
+
+        .contact-intro p {
+            font-size: 1.3rem;
+            color: var(--gris-doux);
+            line-height: 1.7;
+            margin-bottom: var(--space-lg);
+        }
+
+        .form-container {
+            width: 100%;
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 50px var(--shadow-medium);
+            position: relative;
+            z-index: 1;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            width: 100%;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 12px;
+            font-weight: 600;
+            color: var(--terracotta);
+            font-size: 1.05rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 18px 20px;
+            border: 2px solid #eee;
+            border-radius: 10px;
+            font-family: 'Montserrat', sans-serif;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            background: white;
+            color: var(--gris-doux);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--terracotta);
+            box-shadow: 0 0 0 3px rgba(155, 79, 79, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+            line-height: 1.6;
+        }
+
+        .form-message {
+            text-align: center;
+            margin-top: 40px;
+            padding: 30px;
+            background: linear-gradient(135deg, var(--nude-peche), rgba(245, 208, 197, 0.8));
+            border-radius: 15px;
+            border-left: 5px solid var(--terracotta);
+        }
+
+        .form-message p {
+            font-size: 1.2rem;
+            color: var(--gris-doux);
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        /* ===== COLLABORATIONS SECTION ===== */
+        .collaborations-section {
+            background-color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .collaboration-single {
+            max-width: 1000px;
+            margin: 50px auto 0;
+            padding: 40px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px var(--shadow-light);
+            transition: all 0.4s ease;
+        }
+
+        .collaboration-single:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--shadow-medium);
+        }
+
+        .collaboration-single img {
+            width: 100%;
+            height: auto;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .collaborations-thanks {
+            margin-top: 60px;
+            font-style: italic;
+            color: var(--gris-doux);
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            padding: 25px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 12px;
+            border-left: 4px solid var(--terracotta);
+        }
+
+        /* ===== RÉSEAUX SOCIAUX AMÉLIORÉS ===== */
+        .social-section {
+            background: linear-gradient(135deg, var(--nude-peche), rgba(245, 208, 197, 0.8));
+            text-align: center;
+            padding: 70px 0;
+            width: 100%;
+            position: relative;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .social-icons a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--terracotta), var(--terracotta-dark));
+            color: white;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 8px 20px var(--shadow-medium);
+        }
+
+        .social-icons a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .social-icons a:hover {
+            transform: translateY(-10px) scale(1.1);
+            box-shadow: 0 15px 30px var(--shadow-medium);
+        }
+
+        .social-icons a:hover::before {
+            left: 100%;
+        }
+
+        .social-icons a:nth-child(1):hover { background: linear-gradient(135deg, #E1306C, #C13584); }
+        .social-icons a:nth-child(2):hover { background: linear-gradient(135deg, #000000, #333333); }
+        .social-icons a:nth-child(3):hover { background: linear-gradient(135deg, #E60023, #BD081C); }
+
+        /* ===== FOOTER AMÉLIORÉ ===== */
+        footer {
+            background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
+            color: white;
+            padding: 80px 0 30px;
+            width: 100%;
+            position: relative;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(to right, var(--rose-poudre), var(--terracotta));
+        }
+
+        .footer-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            margin-bottom: 50px;
+        }
+
+        .footer-section {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            text-align: left;
+        }
+
+        .footer-section h3 {
+            color: var(--nude-peche);
+            margin-bottom: 30px;
+            font-size: 1.5rem;
+            position: relative;
+            padding-bottom: 15px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .footer-section h3::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--rose-poudre), var(--terracotta));
+            border-radius: 2px;
+        }
+
+        .footer-section p {
+            margin-bottom: 20px;
+            color: #ccc;
+            line-height: 1.7;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .footer-section p i {
+            color: var(--rose-poudre);
+            font-size: 1.2rem;
+            width: 20px;
+        }
+
+        .footer-section ul {
+            list-style: none;
+            width: 100%;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 15px;
+        }
+
+        .footer-section ul li a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .footer-section ul li a:hover {
+            color: var(--nude-peche);
+            transform: translateX(5px);
+        }
+
+        .footer-section ul li a i {
+            color: var(--rose-poudre);
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 30px;
+            margin-top: 50px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #999;
+            font-size: 0.95rem;
+        }
+
+        /* ===== BOUTON WHATSAPP AMÉLIORÉ ===== */
+        .whatsapp-float {
+            position: fixed;
+            width: 70px;
+            height: 70px;
+            bottom: 40px;
+            right: 40px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            font-size: 2.2rem;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 3px solid white;
+            overflow: hidden;
+        }
+
+        .whatsapp-float::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .whatsapp-float:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 15px 30px rgba(37, 211, 102, 0.4);
+        }
+
+        .whatsapp-float:hover::before {
+            left: 100%;
+        }
+
+        /* ===== ANIMATIONS AU SCROLL ===== */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===== BARRE DE PROGRESSION ===== */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 4px;
+            background: linear-gradient(to right, var(--rose-poudre), var(--terracotta));
+            z-index: 1001;
+            transition: width 0.1s ease;
+            box-shadow: 0 2px 10px var(--shadow-medium);
+        }
+
+        /* ===== MEDIA QUERIES AMÉLIORÉES ===== */
         @media (max-width: 1200px) {
+            h1 { font-size: 3rem; }
+            h2 { font-size: 2.2rem; }
+            
             .hero h1 {
-                font-size: 3.5rem;
+                font-size: 3.2rem;
+            }
+            
+            .esprit-overlay-title {
+                font-size: 3rem;
+            }
+            
+            .contact-intro h2 {
+                font-size: 3rem;
+            }
+            
+            .vision-title {
+                font-size: 3rem;
             }
         }
 
         @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-            
             .nav-menu {
                 position: fixed;
-                top: 80px;
+                top: 0;
                 right: -100%;
-                background-color: white;
-                width: 250px;
-                height: calc(100vh - 80px);
+                background-color: rgba(255, 255, 255, 0.98);
+                width: 300px;
+                height: 100vh;
                 flex-direction: column;
-                padding: 40px 20px;
-                transition: right 0.3s ease;
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
+                padding: 120px 40px 40px;
+                transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+                backdrop-filter: blur(10px);
+                gap: 0;
             }
             
             .nav-menu.active {
@@ -745,146 +1223,309 @@
             }
             
             .nav-menu li {
-                margin: 15px 0;
+                margin: 0;
+                width: 100%;
+                border-bottom: 1px solid rgba(245, 208, 197, 0.3);
+            }
+            
+            .nav-menu li:last-child {
+                border-bottom: none;
+            }
+            
+            .nav-menu a {
+                display: block;
+                padding: 20px 0;
+                font-size: 1.2rem;
+                text-align: left;
             }
             
             .hamburger {
                 display: block;
             }
             
-            .about-text, .about-image {
-                flex: 100%;
-                padding: 0;
-                margin-bottom: 30px;
+            .hero h1 {
+                font-size: 2.8rem;
             }
-
-            /* Amélioration des logos partenaires sur tablettes */
-            .partners-grid {
+            
+            .hero .script-font {
+                font-size: 2.8rem;
+            }
+            
+            .hero-badge {
+                width: 320px;
+            }
+            
+            .hero-cta-group {
+                flex-direction: row;
+                gap: 20px;
+            }
+            
+            .btn {
+                min-width: 180px;
+            }
+            
+            .esprit-row,
+            .esprit-row:nth-child(even) {
+                grid-template-columns: 1fr;
+                padding: 30px;
+            }
+            
+            .esprit-row:nth-child(even) .esprit-image {
+                order: 1;
+            }
+            
+            .esprit-row:nth-child(even) .esprit-text {
+                order: 2;
+            }
+            
+            .design-grid {
+                grid-template-columns: 1fr;
                 gap: 30px;
             }
             
-            .partner-item {
-                width: 180px;
-                height: 110px;
+            .vision-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            /* Ajustement des h3 colorés sur tablette */
+            .design-card h3 {
+                padding: 12px 25px;
+                font-size: 1.6rem;
             }
         }
 
         @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 2.5rem;
+            section {
+                padding: 60px 0;
             }
             
-            .hero p {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.6rem; }
+            
+            .hero {
+                min-height: 700px;
+                padding-top: 100px;
+            }
+            
+            .hero h1 {
+                font-size: 2.3rem;
+            }
+            
+            .hero .script-font {
+                font-size: 2.3rem;
+            }
+            
+            .hero .lead-text {
                 font-size: 1.2rem;
             }
             
-            .btn {
-                display: block;
-                margin: 10px auto;
-                width: 80%;
+            .hero-badge {
+                width: 280px;
             }
             
-            .btn-outline {
-                margin-left: 0;
-            }
-            
-            .about-text {
-                padding: 0;
-            }
-            
-            .video-container {
-                width: 95%;
-            }
-            
-            /* Amélioration des logos partenaires sur mobiles */
-            .partners-grid {
-                gap: 20px;
-            }
-            
-            .partner-item {
-                width: 150px;
-                height: 90px;
-                padding: 10px;
-            }
-
-            /* Amélioration responsive des images de services */
-            .services-grid {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-
-            .service-img {
-                height: 180px;
-            }
-
-            /* Amélioration responsive des réalisations */
-            .realisations-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            .hero-cta-group {
+                flex-direction: column;
                 gap: 15px;
+                align-items: center;
             }
-
-            .realisation-item {
-                height: 200px;
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+                margin: 5px 0;
+                padding: 14px 30px;
+                font-size: 1rem;
+            }
+            
+            .logo img {
+                height: 70px;
+            }
+            
+            header.scrolled .logo img {
+                height: 60px;
+            }
+            
+            .esprit-banner {
+                height: 250px;
+                margin-bottom: 40px;
+            }
+            
+            .esprit-overlay-title {
+                font-size: 2.5rem;
+            }
+            
+            .vision-section {
+                min-height: auto;
+                padding: 80px 0;
+            }
+            
+            .vision-title {
+                font-size: 2.5rem;
+            }
+            
+            /* Ajustement pour les boutons "Voir plus" sur mobile */
+            .text-content.collapsed {
+                max-height: 150px;
+            }
+            
+            .read-more-btn {
+                display: inline-block;
+            }
+            
+            /* Ajustement des h3 colorés sur mobile */
+            .design-card h3 {
+                padding: 10px 20px;
+                font-size: 1.4rem;
+            }
+            
+            .form-container {
+                padding: 30px;
+            }
+            
+            .contact-intro h2 {
+                font-size: 2.5rem;
+            }
+            
+            .contact-intro p {
+                font-size: 1.1rem;
+            }
+            
+            .collaboration-single {
+                padding: 25px;
+            }
+            
+            .social-icons a {
+                width: 60px;
+                height: 60px;
+                font-size: 1.6rem;
+            }
+            
+            .whatsapp-float {
+                width: 60px;
+                height: 60px;
+                bottom: 30px;
+                right: 30px;
+                font-size: 1.8rem;
             }
         }
 
         @media (max-width: 576px) {
+            .container {
+                width: 95%;
+                padding: 0 15px;
+            }
+            
             .hero h1 {
                 font-size: 2rem;
+            }
+            
+            .hero .script-font {
+                font-size: 2rem;
+            }
+            
+            .hero .lead-text {
+                font-size: 1.1rem;
+            }
+            
+            .hero-badge {
+                width: 250px;
+            }
+            
+            .section-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .esprit-overlay-title {
+                font-size: 2rem;
+            }
+            
+            .esprit-row {
+                padding: 20px;
+            }
+            
+            .design-card {
+                margin: 0 10px;
+            }
+            
+            .design-content {
+                padding: 20px;
+            }
+            
+            /* Ajustement final des h3 colorés sur petit mobile */
+            .design-card h3 {
+                padding: 8px 16px;
+                font-size: 1.2rem;
+                border-radius: 30px;
+            }
+            
+            .vision-content {
+                padding: 40px 20px;
+            }
+            
+            .vision-title {
+                font-size: 2rem;
+            }
+            
+            .vision-intro {
+                font-size: 1.1rem;
+            }
+            
+            .contact-intro h2 {
+                font-size: 2rem;
+            }
+            
+            .collaboration-single {
+                padding: 20px;
+            }
+            
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 1.8rem;
             }
             
             .hero .script-font {
                 font-size: 1.8rem;
             }
             
-            .hero p {
-                font-size: 1rem;
+            .hero-badge {
+                width: 220px;
             }
             
-            .section-title h2 {
+            .btn {
+                padding: 14px 25px;
+                font-size: 1rem;
+                min-width: auto;
+            }
+            
+            .esprit-banner {
+                height: 200px;
+            }
+            
+            .esprit-overlay-title {
                 font-size: 1.8rem;
             }
-
-            /* Optimisation des logos partenaires sur petits écrans */
-            .partners-grid {
-                gap: 15px;
+            
+            .vision-title {
+                font-size: 1.8rem;
             }
             
-            .partner-item {
-                width: 130px;
-                height: 80px;
-                padding: 8px;
-            }
-
-            /* Amélioration des images de services sur mobiles */
-            .service-img {
-                height: 160px;
-            }
-
-            /* Ajustement des marges et espacements sur mobiles */
-            section {
-                padding: 60px 0;
-            }
-
-            .mission-item {
+            .form-container {
                 padding: 20px;
-            }
-        }
-
-        @media (max-width: 400px) {
-            /* Optimisation pour très petits écrans */
-            .partner-item {
-                width: 110px;
-                height: 70px;
-            }
-
-            .realisations-grid {
-                grid-template-columns: 1fr;
             }
         }
     </style>
 </head>
 <body>
+    <!-- Barre de progression -->
+    <div class="scroll-progress"></div>
+
     <!-- Loader -->
     <div id="loader">
         <div class="loader-content">
@@ -897,16 +1538,16 @@
     <!-- Header avec Navigation -->
     <header>
         <div class="container header-container">
-            <a href="#" class="logo">Le Boudoir <span>Event</span></a>
-            <button class="hamburger" id="hamburger">
+            <a href="#accueil" class="logo"><img src="logo.png" alt="Le Boudoir Event" loading="lazy"></a>
+            <button class="hamburger" id="hamburger" aria-label="Menu">
                 <i class="fas fa-bars"></i>
             </button>
             <ul class="nav-menu" id="navMenu">
-                <li><a href="#accueil">Accueil</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#about">Qui sommes-nous</a></li>
-                <li><a href="#realisations">Réalisations</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#accueil" class="active">Bienvenue</a></li>
+                <li><a href="#esprit">L'esprit du Boudoir</a></li>
+                <li><a href="#design">Design & Coordination</a></li>
+                <li><a href="portfolio.html" target="_blank">Portfolio</a></li>
+                <li><a href="#contact">Discutons</a></li>
             </ul>
         </div>
     </header>
@@ -917,253 +1558,349 @@
         <section class="hero" id="accueil">
             <div class="container hero-content">
                 <span class="script-font">Créateur d'émotions</span>
-                <h1>"Transformons vos rêves en moments inoubliables"</h1>
-                <p>Event Planner, Décorateur et Organisateur d'Evénement sur Mésure </p>
-                <a href="#contact" class="btn">Demander un devis</a>
+                <img src="bb.png" alt="Créateur d'émotions" class="hero-badge glow" loading="lazy">
+                <h1>Transformons vos instants en un moment précieux</h1>
+                <p class="lead-text">Event Planner, Décorateur et Organisateur d'Événement sur Mesure</p>
+                <div class="hero-cta-group">
+                    <a href="#contact" class="btn"><i class="fas fa-calendar-check"></i> DISCUTONS</a>
+                    <a href="portfolio.html" target="_blank" class="btn btn-outline"><i class="fas fa-images"></i> PORTFOLIO</a>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Section Esprit -->
+        <section id="esprit" class="esprit-section">
+            <div class="container">
+                <div class="esprit-banner">
+                    <div class="esprit-overlay-title">L'ESPRIT DU BOUDOIR</div>
+                </div>
+                <div class="esprit-rows">
+                    <!-- Julie -->
+                    <div class="esprit-row fade-in">
+                        <div class="esprit-image">
+                            <img src="personne7.jpeg" alt="Bienvenue au Boudoir Event" loading="lazy">
+                        </div>
+                        <div class="esprit-text">
+                            <h3>✨ Bienvenue dans l'univers du BOUDOIR EVENT ✨</h3>
+                            <div class="text-content collapsed">
+                                <p>Je suis Julie, fondatrice de l'agence.</p>
+                                <p>Depuis aussi loin que je me souvienne, j'ai toujours eu cette passion viscérale : faire naître des sourires, provoquer l'émerveillement, transmettre de l'amour à travers les petites attentions comme les grands moments.</p>
+                                <p>C'est ce désir profond qui m'a guidée et m'a poussée à créer LE BOUDOIR EVENT. Une évidence : transformer mon amour pour la beauté, l'émotion et le partage en une agence dédiée à la création d'instants uniques.</p>
+                                <p>Chaque projet que j'imagine est une rencontre entre l'élégance et l'authenticité, un univers où chaque détail compte et où chaque ambiance raconte une histoire.</p>
+                                <p>Qu'il s'agisse d'un pique-nique de luxe, d'une décoration raffinée ou d'un événement sur mesure, ma mission reste la même :</p>
+                                <p>✨ Vous offrir bien plus qu'un service, une véritable expérience à vivre, à ressentir et à chérir.</p>
+                            </div>
+                            <button class="read-more-btn">Voir plus...</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Christelle -->
+                    <div class="esprit-row fade-in">
+                        <div class="esprit-image">
+                            <img src="personne6.jpeg" alt="Christelle" loading="lazy">
+                        </div>
+                        <div class="esprit-text">
+                            <h3>Christelle, notre partenaire d'élégance</h3>
+                            <div class="text-content collapsed">
+                                <p>Dans l'aventure du Boudoir, il y a une histoire de famille. Christelle, c'est plus qu'une sœur, c'est mon associée de toujours.</p>
+                                <p>Depuis le début de cette aventure, nous avançons en tandem. Là où j'imagine et je conçois, elle apporte la magie.</p>
+                                <p>Chez Christelle, le chic n'est pas une façade, c'est une seconde nature... Elle incarne l'élégance, le beau & le subtil. Avec elle, rien n'est figé; tout devient mouvement, nuance, harmonie.</p>
+                                <p>Elle capte, elle imagine, elle sublime avec une fluidité déconcertante. Sa douceur et son efficacité transforment mes idées en évidences élégantes.</p>
+                                <p>Son parcours dans l'univers de la beauté lui a donné une maîtrise unique des textures, des couleurs, de la juste mesure. Aujourd'hui, elle met cette sensibilité au service du Boudoir, où sa douceur se mêle à une efficacité redoutable.</p>
+                                <p>Christelle, c'est notre touche chic et malicieuse, la signature élégante qui rend nos univers aussi captivants qu'inoubliables.</p>
+                            </div>
+                            <button class="read-more-btn">Voir plus...</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Diana -->
+                    <div class="esprit-row fade-in">
+                        <div class="esprit-image">
+                            <img src="personne5.jpeg" alt="Diana" loading="lazy">
+                        </div>
+                        <div class="esprit-text">
+                            <h3>Diana, notre alliée pétillante et créative</h3>
+                            <div class="text-content collapsed">
+                                <p>Diana, c'est notre alliée depuis le premier jour, celle qui fait rimer débrouillardise avec éclats de rire.</p>
+                                <p>Avec son humour décalé et son énergie joyeuse, elle transforme chaque défi en réussite.</p>
+                                <p>Mais attention : derrière ce tourbillon espiègle se cache un œil affûté. Un regard qui déniche le détail qui change tout, qui ajuste, qui magnifie.</p>
+                                <p>Au Boudoir, c'est elle qui orchestre tout l'univers floral. Elle sélectionne les variétés, associe les textures, dompte les couleurs... et confectionne des bouquets aussi singuliers qu'audacieux!</p>
+                                <p>Son approche est instinctive, vibrante, presque intuitive : elle sent ce qui fonctionne, ce qui émeut, ce qui fera la différence.</p>
+                                <p>Avec son talent pour l'habillage floral et la scénographie, Diana met en scène des atmosphères. Des univers poétiques, vivants, lumineux, qui donnent à chaque événement une identité visuelle forte.</p>
+                                <p>Diana, c'est notre complice lumineuse, notre floral designer, celle qui fait rayonner le Boudoir et enflamme chacun de nos événements.</p>
+                            </div>
+                            <button class="read-more-btn">Voir plus...</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Yasmine -->
+                    <div class="esprit-row fade-in">
+                        <div class="esprit-image">
+                            <img src="personne4.jpeg" alt="Yasmine - Cake Design" loading="lazy">
+                        </div>
+                        <div class="esprit-text">
+                            <h3>Yasmine : L'art du Cake design</h3>
+                            <div class="text-content collapsed">
+                                <p>Yasmine, alias Jasmiin-Cakes, fait battre le cœur du Boudoir version sucrée.</p>
+                                <p>Habile de ses dix doigts, elle fouette, mélange et façonne avec la précision d'un orfèvre, pour donner vie à des créations sucrées aussi justes à l'œil qu'inoubliables au palais.</p>
+                                <p>Avec Yasmine, la pâtisserie prend des allures de haute couture. Chaque création est une pièce unique, pensée comme un bijou : des textures qui s'entrelacent, des saveurs qui explosent, une esthétique qui séduit avant même la première bouchée.</p>
+                                <p>Cupcakes délicats, number et letter cakes graphiques, pièces montées spectaculaires… Sans artifice ni excès, elle réinvente la gourmandise avec audace et élégance.</p>
+                                <p>Ses gâteaux ne se dégustent pas seulement, ils se vivent!</p>
+                            </div>
+                            <button class="read-more-btn">Voir plus...</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Maëva -->
+                    <div class="esprit-row fade-in">
+                        <div class="esprit-image">
+                            <img src="personne3.jpeg" alt="Maëva - Communication" loading="lazy">
+                        </div>
+                        <div class="esprit-text">
+                            <h3>Maëva, l'AS de la communication</h3>
+                            <div class="text-content collapsed">
+                                <p>Maëva, c'est notre plume affûtée et la signature digitale du Boudoir.</p>
+                                <p>Elle rédige, scénarise et orchestre chaque contenu comme on compose une partition : avec précision, style et intention. Résultat : une présence vibrante, cohérente et reconnaissable entre toutes.</p>
+                                <p>Curieuse et intuitive, elle sait décrypter les tendances, saisir les codes et trouver les mots justes pour faire vibrer notre communauté. Son talent ? Créer du lien, donner de la portée, amplifier notre présence et révéler l'ADN du Boudoir sur chaque canal.</p>
+                                <p>Créative dans la forme, exigeante dans le fond, elle manie l'image et le langage comme d'autres manient la couleur et la matière. Avec elle, nos projets ne restent pas dans l'ombre : ils s'expriment, s'affirment et brillent.</p>
+                            </div>
+                            <button class="read-more-btn">Voir plus...</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Joris -->
+                    <div class="esprit-row fade-in">
+                        <div class="esprit-image">
+                            <img src="personne2.jpeg" alt="Joris" loading="lazy">
+                        </div>
+                        <div class="esprit-text">
+                            <h3>Joris, notre couteau suisse haute précision</h3>
+                            <div class="text-content collapsed">
+                                <p>Il y a toujours ce moment — juste avant que la panique ne s'installe — où nous appelons Joris. Une structure à ajuster, un élément à fixer, un imprévu XXL ? En un clin d'œil, il débarque, observe, analyse, et remet les choses en place avec une précision qui force l'admiration.</p>
+                                <p>Frère des fondatrices, il fait partie de l'ADN du Boudoir : il comprend nos besoins avant même qu'on les formule, réagit du tac au tac et nous dépanne à tous les coups.</p>
+                                <p>Rien ne semble l'arrêter — il trouve, il répare, il improvise, et toujours avec ce calme presque mystérieux... celui qui transforme un potentiel chaos en simple anecdote de coulisses.</p>
+                                <p>Pour nous, Joris, c'est bien plus qu'un homme à tout faire : c'est notre couteau suisse, notre solution en temps réel, notre force tranquille quand tout s'emballe.</p>
+                                <p>Grâce à lui, les galères fondent comme nege au soleil et chaque événement retrouve sa lumière, son éclat, son évidence.</p>
+                            </div>
+                            <button class="read-more-btn">Voir plus...</button>
+                        </div>
+                    </div>
+                    
+                    <!-- Gary -->
+                    <div class="esprit-row fade-in">
+                        <div class="esprit-image">
+                            <img src="personne1.jpeg" alt="Gary" loading="lazy">
+                        </div>
+                        <div class="esprit-text">
+                            <h3>Gary, l'architecte de nos décors</h3>
+                            <div class="text-content collapsed">
+                                <p>Chez Garry, la décoration se pense comme une construction. Chaque projet est un terrain de jeu où les formes prennent vie, où les volumes s'élèvent, où les matières s'accordent pour composer un décor qui raconte une histoire.</p>
+                                <p>Animaux décoratifs, arches monumentales, fonds de scène immersifs... il modèle, sculpte, structure, toujours avec ce sens aigu de la proportion et de l'impact visuel.</p>
+                                <p>Sa force ? Donner corps à mes idées (même les plus folles), transformer les concepts que j'imagine en volumes réels, calibrés au millimètre.</p>
+                            </div>
+                            <button class="read-more-btn">Voir plus...</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <!-- Services Section -->
-        <section id="services">
+        <!-- Section Notre Vision -->
+        <section class="vision-section fade-in">
+            <div class="container">
+                <div class="vision-content">
+                    <h2 class="vision-title">NOTRE VISION</h2>
+                    <p class="vision-intro">Créer un événement d'exception ne s'improvise pas : c'est un art. Chez le Boudoir Event, chaque projet est pensé comme une œuvre singulière, où le moindre détail est choisi avec exigence pour refléter votre univers.</p>
+                    
+                    <div class="vision-grid">
+                        <div class="vision-item">
+                            <h4><i class="fas fa-bullseye"></i> Notre Mission</h4>
+                            <p>Donner vie à vos instants les plus précieux en créant des expériences uniques, empreintes de raffinement et d'émotion.</p>
+                        </div>
+                        
+                        <div class="vision-item">
+                            <h4><i class="fas fa-star"></i> Notre Promesse</h4>
+                            <p>Écrire avec vous des histoires à vivre, à ressentir et à célébrer, pour les transformer en souvenirs d'exception.</p>
+                        </div>
+                        
+                        <div class="vision-item">
+                            <h4><i class="fas fa-handshake"></i> Notre Engagement</h4>
+                            <p>Vous garantir une sérénité absolue et l'assurance d'une organisation irréprochable, pour que votre priorité soit de savourer pleinement chaque moment.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Design & Coordination Section (Nouveau design) -->
+        <section id="design" class="design-section fade-in">
             <div class="container">
                 <div class="section-title">
-                    <h2>Nos Services</h2>
-                    <p>Nous proposons une gamme complète de services pour faire de votre événement une réussite</p>
+                    <h2>Design & Coordination</h2>
+                    <p>Une expertise complète pour transformer vos événements en moments d'exception</p>
                 </div>
                 
-                <div class="services-grid">
-                    <div class="service-card">
-                        <div class="service-img">
-                            <img src="image2.jpg" alt="Décoration d'événements">
+                <div class="design-grid">
+                    <!-- Décoration & Organisation -->
+                    <div class="design-card">
+                        <div class="design-image">
+                            <img src="deco1.jpg" alt="Décoration & Organisation" loading="lazy">
                         </div>
-                        <div class="service-content">
+                        <div class="design-content">
                             <h3>Décoration & Organisation</h3>
-                            <p>Création d'ambiances uniques et personnalisées pour tous vos événements : mariages, baptêmes, anniversaires, baby showers...</p>
+                            <div class="design-subtitle">Mariages, fêtes ou célébrations intimes</div>
+                            <p>Nous imaginons pour vous des ambiances raffinées, pensées dans le moindre détail. Chaque élément est choisi avec soin pour créer une harmonie parfaite et une expérience sensorielle unique.</p>
                         </div>
                     </div>
                     
-                    <div class="service-card">
-                        <div class="service-img">
-                            <img src="photo10.jpg" alt="Location d'équipements">
+                    <!-- Location de matériel -->
+                    <div class="design-card">
+                        <div class="design-image">
+                            <img src="deco2.jpg" alt="Location de matériel" loading="lazy">
                         </div>
-                        <div class="service-content">
-                            <h3>Location</h3>
-                            <p>Matériel de qualité pour tous vos événements :</p>
-                            <ul>
-                                <li>Structures décoratives (arche, backdrop...)</li>
-                                <li>Loisirs (château gonflable, aire de jeux, piscine à balles)</li>
-                                <li>Vaisselle élégante</li>
-                                <li>Mobilier design</li>
-                            </ul>
+                        <div class="design-content">
+                            <h3>Location de matériel</h3>
+                            <div class="design-subtitle">Mobilier, accessoires et décorations raffinés</div>
+                            <p>Mobiliers, accessoires et décorations raffinés à louer, pour habiller vos événements et créer une atmosphère qui vous ressemble. Des pièces uniques pour une touche d'élégance distinctive.</p>
                         </div>
                     </div>
                     
-                    <div class="service-card">
-                        <div class="service-img">
-                            <img src="image1.jpg" alt="Événements sur mesure">
+                    <!-- Événements sur mesure -->
+                    <div class="design-card">
+                        <div class="design-image">
+                            <img src="image1.jpg" alt="Événements sur mesure" loading="lazy">
                         </div>
-                        <div class="service-content">
-                            <h3>Événements Sur Mesure</h3>
-                            <p>Design et coordination selon vos souhaits et votre budget.</p>
+                        <div class="design-content">
+                            <h3>Événements sur mesure</h3>
+                            <div class="design-subtitle">Célébrations privées ou professionnelles</div>
+                            <p>Des célébrations privées ou professionnelles créées spécialement pour vous, avec élégance et authenticité. Notre équipe s'adapte à vos besoins pour concevoir un événement unique qui reflète votre personnalité.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <!-- About Section -->
-        <section id="about" class="about">
+        <!-- Portfolio CTA Section -->
+        <section class="portfolio-cta fade-in">
             <div class="container">
                 <div class="section-title">
-                    <h2>Qui sommes-nous</h2>
+                    <h2>Découvrez nos réalisations</h2>
+                    <p>Explorez notre portfolio complet et laissez-vous inspirer par nos créations</p>
                 </div>
-                
-                <div class="about-container">
-                    <div class="about-image">
-                        <img src="propos.jpg" alt="Équipe du Boudoir Event">
-                    </div>
-                    <div class="about-text">
-                        <p><strong>LE BOUDOIR EVENT</strong> est une agence spécialisée dans l'organisation et la décoration d'événements, née de la passion de sublimer les moments importants de la vie.</p>
-                        
-                        <p>Notre mission est de créer des instants uniques, raffinés et mémorables, où chaque détail est pensé pour refléter vos envies et vos émotions.</p>
-                        
-                        <p>Nous vous accompagnons dans la conception, la mise en scène et la réalisation de vos projets - qu'il s'agisse d'un mariage, d'un baptême, d'un anniversaire, d'une journée bien-être, d'un événement d'entreprise ou d'une célébration institutionnelle.</p>
-                        
-                        <p>À travers une approche personnalisée et une écoute attentive, nous transformons vos idées en décors élégants et harmonieux. Location de structures décoratives, mise en place de photobooths, scénographie florale ou encore création d'ambiances thématiques : chaque prestation est conçue avec soin pour faire de votre événement une expérience inoubliable.</p>
-                        
-                        <p><strong>LE BOUDOIR EVENT</strong>, c'est l'art de transformer vos instants en un moment précieux.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Mission Section -->
-        <section class="mission-section">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Notre Engagement</h2>
-                </div>
-                
-                <div class="mission-container">
-                    <div class="mission-item">
-                        <h3>MA MISSION</h3>
-                        <p>« Vous créer un événement où chaque détail reflète vos envies »</p>
-                    </div>
-                    
-                    <div class="mission-item">
-                        <h3>MA PROMESSE</h3>
-                        <p>« Faire de vos instants un moment précieux »</p>
-                    </div>
-                    
-                    <div class="mission-item">
-                        <h3>MA VOLONTÉ</h3>
-                        <p>« Vous offrir sérénité et confiance, en réduisant vos inquiétudes et en augmentant votre tranquillité... pour que votre seule préoccupation soit de profiter pleinement de votre événement »</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Réalisation Preview Section -->
-        <section id="realisations" class="realisation-preview">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Nos Réalisations & Coulisses</h2>
-                    <p>Découvrez l'envers du décor et quelques-unes de nos plus belles créations</p>
-                </div>
-                
-                <div class="video-container">
-                    <video autoplay muted loop playsinline>
-                        <source src="video3.mp4" type="video/mp4">
-                        Votre navigateur ne supporte pas la lecture de vidéos.
-                    </video>
-                </div>
-                
-                <a href="#realisations-page-content" class="btn" id="voir-realisations">Voir toutes nos réalisations</a>
+                <a href="portfolio.html" target="_blank" class="btn"><i class="fas fa-images"></i> Voir le Portfolio Complet</a>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="contact">
+        <section id="contact" class="contact-section fade-in">
             <div class="container">
-                <div class="section-title">
-                    <h2>Demandez un devis</h2>
-                    <p>Remplissez le formulaire ci-dessous et nous vous recontacterons dans les plus brefs délais</p>
-                </div>
-                
-                <div class="budget-note">
-                    <h4>Informations importantes</h4>
-                    <p>Notre minimum de commande est de 750€ pour la décoration.<br>
-                    Nos tarifs pour les mariages commencent à partir de 3000€.</p>
+                <div class="contact-intro">
+                    <h2>Discutons</h2>
+                    <p>Vous avez un projet à célébrer ? Un mariage, un anniversaire, un baptême ou même un shooting ? Laissez nous découvrir votre univers, vos inspirations, vos désirs pour que nous réalisions ensemble un évènement mémorable.</p>
                 </div>
                 
                 <div class="form-container">
-                    <form id="devis-form" action="https://getform.io/f/[VOTRE_CODE_GETFORM_ICI]" method="POST">
-                        <div class="form-group">
-                            <label for="nom">Nom</label>
-                            <input type="text" id="nom" name="nom" class="form-control" required>
+                    <form id="contact-form" action="https://getform.io/f/byvqypra" method="POST">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nom">Nom</label>
+                                <input type="text" id="nom" name="nom" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="prenom">Prénom</label>
+                                <input type="text" id="prenom" name="prenom" class="form-control" required>
+                            </div>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="prenom">Prénom</label>
-                            <input type="text" id="prenom" name="prenom" class="form-control" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">Adresse mail</label>
+                                <input type="email" id="email" name="email" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="telephone">Coordonnées téléphoniques</label>
+                                <input type="tel" id="telephone" name="telephone" class="form-control" required>
+                            </div>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="email">Email</label>
-                            <input type="email" id="email" name="email" class="form-control" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="date">Date de l'évènement</label>
+                                <input type="date" id="date" name="date" class="form-control" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="lieu">Lieu de l'évènement</label>
+                                <input type="text" id="lieu" name="lieu" class="form-control" required>
+                            </div>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="telephone">Téléphone</label>
-                            <input type="tel" id="telephone" name="telephone" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="evenement">Type d'événement</label>
-                            <select id="evenement" name="evenement" class="form-control" required>
-                                <option value="">Sélectionnez...</option>
-                                <option value="mariage">Mariage</option>
-                                <option value="bapteme">Baptême</option>
-                                <option value="anniversaire">Anniversaire</option>
-                                <option value="baby-shower">Baby Shower</option>
-                                <option value="entreprise">Événement d'entreprise</option>
-                                <option value="autre">Autre</option>
-                            </select>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="date">Date de l'événement</label>
-                            <input type="date" id="date" name="date" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="lieu">Lieu de l'événement</label>
-                            <input type="text" id="lieu" name="lieu" class="form-control" required>
-                        </div>
-                        
-                        <div class="form-group">
-                            <label for="convives">Nombre de convives</label>
-                            <input type="number" id="convives" name="convives" class="form-control" min="1" required>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="convives">Nombre de convives</label>
+                                <input type="number" id="convives" name="convives" class="form-control" min="1" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="style">Style ou ambiance</label>
+                                <input type="text" id="style" name="style" class="form-control" placeholder="Ex: Bohème, Classique, Moderne..." required>
+                            </div>
                         </div>
                         
                         <div class="form-group">
                             <label for="budget">Budget approximatif</label>
                             <select id="budget" name="budget" class="form-control" required>
-                                <option value="">Sélectionnez...</option>
-                                <option value="750-1500">750-1500€ (sauf mariage)</option>
-                                <option value="1500-2500">1500-2500€ (sauf mariage)</option>
-                                <option value="2500-5000">2500-5000€</option>
-                                <option value="5000+">Plus de 5000€</option>
+                                <option value="">Sélectionnez une fourchette...</option>
+                                <option value="750-1500">750-1500€</option>
+                                <option value="1500-3000">1500-3000€</option>
+                                <option value="3000-5000">3000-5000€</option>
+                                <option value="5000-10000">5000-10000€</option>
+                                <option value="10000+">Plus de 10000€</option>
                             </select>
                         </div>
                         
                         <div class="form-group">
-                            <label for="theme">Thème souhaité</label>
-                            <input type="text" id="theme" name="theme" class="form-control">
+                            <label for="message">Message / précisions</label>
+                            <textarea id="message" name="message" class="form-control" placeholder="Décrivez-nous votre projet, vos idées, vos envies..." required></textarea>
                         </div>
                         
-                        <div class="form-group">
-                            <label for="description">Description de votre événement</label>
-                            <textarea id="description" name="description" class="form-control" required></textarea>
+                        <div class="form-message">
+                            <p>Confiez nous vos idées, partagez nous vos envies, révélez nous vos couleurs !</p>
                         </div>
                         
-                        <button type="submit" class="btn">Envoyer la demande</button>
+                        <input type="text" name="website" style="display:none">
+                        <input type="hidden" name="redirect" value="index.html?sent=1#contact">
+                        
+                        <div class="form-group" style="text-align: center; margin-top: 40px;">
+                            <button type="submit" class="btn"><i class="fas fa-paper-plane"></i> Envoyer ma demande</button>
+                        </div>
                     </form>
                 </div>
             </div>
         </section>
 
-        <!-- Partenaires Section - MODIFIÉE -->
-        <section class="partners-section">
+        <!-- Collaborations Section -->
+        <section class="collaborations-section fade-in">
             <div class="container">
                 <div class="section-title">
-                    <h2>Nos Partenaires</h2>
+                    <h2>Des collaborations d'exception</h2>
                     <p>Nous travaillons avec les meilleurs pour vous offrir un service d'exception</p>
                 </div>
                 
-                <div class="partners-grid">
-                    <div class="partner-item">
-                        <img src="logo1.png" alt="Partenaire 1" class="partner-logo">
-                    </div>
-                    <div class="partner-item">
-                        <img src="logo2.jpg" alt="Partenaire 2" class="partner-logo">
-                    </div>
-                    <div class="partner-item">
-                        <img src="logo3.jpg" alt="Partenaire 3" class="partner-logo">
-                    </div>
-                    <div class="partner-item">
-                        <img src="logo4.jpg" alt="Partenaire 4" class="partner-logo">
-                    </div>
+                <div class="collaboration-single">
+                    <img src="im7.png" alt="Nos partenaires" class="collaboration-logo" loading="lazy">
                 </div>
                 
-                <div class="partners-thanks">
-                    <p>Nous remercions chaleureusement tous nos partenaires pour leur confiance et leur collaboration qui nous permettent de vous offrir des services de qualité exceptionnelle.</p>
+                <div class="collaborations-thanks">
+                    <p>Nous remercions chaleureusement tous nos collaborateurs pour leur confiance et leur expertise qui nous permettent de vous offrir des services de qualité exceptionnelle.</p>
                 </div>
             </div>
         </section>
 
         <!-- Social Media Section -->
-        <section class="social-section">
+        <section class="social-section fade-in">
             <div class="container">
                 <div class="section-title">
                     <h2>Suivez-nous sur les réseaux sociaux</h2>
@@ -1171,9 +1908,9 @@
                 </div>
                 
                 <div class="social-icons">
-                    <a href="https://www.instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://www.tiktok.com" target="_blank"><i class="fab fa-tiktok"></i></a>
-                    <a href="https://www.pinterest.com" target="_blank"><i class="fab fa-pinterest-p"></i></a>
+                    <a href="https://www.instagram.com/leboudoirevent?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    
                 </div>
             </div>
         </section>
@@ -1190,155 +1927,17 @@
                     <h3>Contact</h3>
                     <p><i class="fas fa-phone"></i> 06 90 53 63 09</p>
                     <p><i class="fas fa-envelope"></i> Contact@leboudoirevent.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Région Parisienne et Île-de-France</p>
                 </div>
                 
                 <div class="footer-section">
                     <h3>Liens rapides</h3>
                     <ul>
-                        <li><a href="#accueil">Accueil</a></li>
-                        <li><a href="#services">Services</a></li>
-                        <li><a href="#about">À propos</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-            </div>
-            
-            <div class="container footer-bottom">
-                <p>&copy; 2023 Le Boudoir Event. Tous droits réservés.</p>
-            </div>
-        </footer>
-    </div>
-
-    <!-- Page Réalisations (cachée par défaut) -->
-    <div id="realisations-page">
-        <section id="realisations-page-content" class="realisation-preview" style="padding-top: 120px;">
-            <div class="container">
-                <div class="section-title">
-                    <h2>Nos Réalisations & Coulisses</h2>
-                    <p>Plongez au cœur de l'émotion et découvrez nos plus belles créations en mouvement</p>
-                </div>
-                
-                <div class="realisations-grid">
-                    <div class="realisation-item">
-                        <img src="photo10.jpg" alt="Mariage">
-                        <div class="realisation-overlay">
-                            <i class="fas fa-search-plus"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="realisation-item">
-                        <img src="photo2.jpg" alt="Décoration">
-                        <div class="realisation-overlay">
-                            <i class="fas fa-search-plus"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="realisation-item">
-                        <img src="photo5.jpg" alt="Anniversaire">
-                        <div class="realisation-overlay">
-                            <i class="fas fa-search-plus"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="realisation-item">
-                        <img src="photo1.jpg" alt="Coulisses">
-                        <div class="realisation-overlay">
-                            <i class="fas fa-search-plus"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="realisation-item">
-                        <img src="photo7.jpg" alt="Baby Shower">
-                        <div class="realisation-overlay">
-                            <i class="fas fa-search-plus"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="realisation-item">
-                        <img src="photo11.jpg" alt="Location">
-                        <div class="realisation-overlay">
-                            <i class="fas fa-search-plus"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="realisation-item">
-                        <img src="photo8.jpg" alt="Réception">
-                        <div class="realisation-overlay">
-                            <i class="fas fa-search-plus"></i>
-                        </div>
-                    </div>
-                    
-                    <div class="realisation-item">
-                        <img src="photo9.jpg" alt="Décoration de table">
-                        <div class="realisation-overlay">
-                            <i class="fas fa-search-plus"></i>
-                        </div>
-                    </div>
-                </div>
-                
-                <!-- Section des vidéos -->
-                <div class="videos-section">
-                    <div class="section-title">
-                        <h2>Vidéos de nos réalisations</h2>
-                        <p>Revivez l'ambiance magique de nos événements</p>
-                    </div>
-                    
-                    <div class="videos-grid">
-                        <div class="video-card">
-                            <video controls>
-                                <source src="video4.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la lecture de vidéos.
-                            </video>
-                        </div>
-                        
-                        <div class="video-card">
-                            <video controls>
-                                <source src="video2.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la lecture de vidéos.
-                            </video>
-                        </div>
-                        
-                        <div class="video-card">
-                            <video controls>
-                                <source src="video1.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la lecture de vidéos.
-                            </video>
-                        </div>
-                        
-                        <div class="video-card">
-                            <video controls>
-                                <source src="video3.mp4" type="video/mp4">
-                                Votre navigateur ne supporte pas la lecture de vidéos.
-                            </video>
-                        </div>
-                    </div>
-                </div>
-                
-                <a href="#" class="btn" id="retour-accueil" style="margin-top: 40px;">Retour à l'accueil</a>
-            </div>
-        </section>
-        
-        <!-- Footer pour la page réalisations -->
-        <footer>
-            <div class="container footer-container">
-                <div class="footer-section">
-                    <h3>Le Boudoir Event</h3>
-                    <p>Votre partenaire pour des événements exceptionnels et mémorables.</p>
-                </div>
-                
-                <div class="footer-section footer-contact">
-                    <h3>Contact</h3>
-                    <p><i class="fas fa-phone"></i> 06 90 53 63 09</p>
-                    <p><i class="fas fa-envelope"></i> Contact@leboudoirevent.com</p>
-                </div>
-                
-                <div class="footer-section">
-                    <h3>Liens rapides</h3>
-                    <ul>
-                        <li><a href="#accueil" class="footer-link">Accueil</a></li>
-                        <li><a href="#services" class="footer-link">Services</a></li>
-                        <li><a href="#about" class="footer-link">À propos</a></li>
-                        <li><a href="#contact" class="footer-link">Contact</a></li>
+                        <li><a href="#accueil"><i class="fas fa-chevron-right"></i> Accueil</a></li>
+                        <li><a href="#esprit"><i class="fas fa-chevron-right"></i> L'esprit du Boudoir</a></li>
+                        <li><a href="#design"><i class="fas fa-chevron-right"></i> Design & Coordination</a></li>
+                        <li><a href="portfolio.html" target="_blank"><i class="fas fa-chevron-right"></i> Portfolio</a></li>
+                        <li><a href="#contact"><i class="fas fa-chevron-right"></i> Discutons</a></li>
                     </ul>
                 </div>
             </div>
@@ -1350,23 +1949,25 @@
     </div>
 
     <!-- Bouton WhatsApp -->
-    <a href="https://wa.me/33690536309" class="whatsapp-float" target="_blank">
+    <a href="https://wa.me/33690536309" class="whatsapp-float" target="_blank" aria-label="Contactez-nous sur WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
     <script>
-        // Loader
+        // ===== LOADER =====
         window.addEventListener('load', function() {
             const loader = document.getElementById('loader');
             setTimeout(function() {
                 loader.style.opacity = '0';
                 setTimeout(function() {
                     loader.style.display = 'none';
+                    // Démarrer les animations au scroll après le chargement
+                    initScrollAnimations();
                 }, 500);
             }, 2000);
         });
 
-        // Menu Hamburger
+        // ===== MENU HAMBURGER =====
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('navMenu');
         
@@ -1375,9 +1976,12 @@
             hamburger.innerHTML = navMenu.classList.contains('active') 
                 ? '<i class="fas fa-times"></i>' 
                 : '<i class="fas fa-bars"></i>';
+            
+            // Empêcher le défilement du body lorsque le menu est ouvert
+            document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
         });
 
-        // Navigation et défilement fluide
+        // ===== NAVIGATION ET DÉFILEMENT FLUIDE =====
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 if (this.getAttribute('href') === '#') return;
@@ -1385,15 +1989,10 @@
                 e.preventDefault();
                 
                 const targetId = this.getAttribute('href');
-                if (targetId === '#realisations-page-content') {
-                    showRealisationsPage();
-                    return;
-                }
-                
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     window.scrollTo({
-                        top: targetElement.offsetTop - 80,
+                        top: targetElement.offsetTop - 100,
                         behavior: 'smooth'
                     });
                     
@@ -1401,49 +2000,181 @@
                     if (navMenu.classList.contains('active')) {
                         navMenu.classList.remove('active');
                         hamburger.innerHTML = '<i class="fas fa-bars"></i>';
+                        document.body.style.overflow = '';
                     }
+                    
+                    // Mettre à jour l'élément actif dans la navigation
+                    updateActiveNavLink(targetId);
                 }
             });
         });
 
-        // Afficher la page des réalisations
-        function showRealisationsPage() {
-            document.getElementById('accueil-page').style.display = 'none';
-            document.getElementById('realisations-page').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+        // ===== METTRE À JOUR LE LIEN ACTIF DANS LA NAVIGATION =====
+        function updateActiveNavLink(targetId) {
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === targetId) {
+                    link.classList.add('active');
+                }
+            });
         }
 
-        // Retour à l'accueil depuis la page des réalisations
-        document.getElementById('retour-accueil').addEventListener('click', function(e) {
-            e.preventDefault();
-            document.getElementById('realisations-page').style.display = 'none';
-            document.getElementById('accueil-page').style.display = 'block';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        });
+        // ===== FORMULAIRE DE CONTACT =====
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('sent') === '1') {
+            const formContainer = document.querySelector('.form-container');
+            if (formContainer) {
+                const successMessage = document.createElement('div');
+                successMessage.className = 'form-message';
+                successMessage.style.backgroundColor = 'rgba(155, 79, 79, 0.1)';
+                successMessage.style.borderLeftColor = 'var(--terracotta)';
+                successMessage.innerHTML = '<h4 style="color: var(--terracotta); margin-bottom: 15px;">Merci !</h4><p style="color: var(--gris-doux); font-size: 1.1rem;">Votre demande a été envoyée. Nous vous recontacterons très rapidement.</p>';
+                formContainer.prepend(successMessage);
+            }
+            history.replaceState({}, '', window.location.origin + window.location.pathname + '#contact');
+        }
 
-        // Voir les réalisations
-        document.getElementById('voir-realisations').addEventListener('click', function(e) {
-            e.preventDefault();
-            showRealisationsPage();
-        });
-
-        // Formulaire de contact avec Getform
-        document.getElementById('devis-form').addEventListener('submit', function(e) {
-            // La soumission se fait directement vers Getform
-            // Vous pouvez ajouter ici un message de confirmation
-            alert('Merci pour votre demande ! Nous vous recontacterons très rapidement.');
-        });
-
-        // Changement de style du header au scroll
+        // ===== CHANGEMENT DE STYLE DU HEADER AU SCROLL =====
         window.addEventListener('scroll', function() {
             const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.padding = '10px 0';
-                header.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
+            const scrollProgress = document.querySelector('.scroll-progress');
+            
+            // Barre de progression
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            scrollProgress.style.width = scrolled + "%";
+            
+            // Header
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
             } else {
-                header.style.padding = '15px 0';
-                header.style.boxShadow = 'none';
+                header.classList.remove('scrolled');
             }
+            
+            // Mettre à jour le lien actif en fonction de la position de défilement
+            updateActiveNavOnScroll();
+            
+            // Animation des éléments au scroll
+            animateOnScroll();
+        });
+
+        // ===== ANIMATIONS AU SCROLL =====
+        function initScrollAnimations() {
+            // Initialiser les éléments avec la classe fade-in
+            const fadeElements = document.querySelectorAll('.fade-in');
+            fadeElements.forEach(el => {
+                if (isElementInViewport(el)) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+
+        function animateOnScroll() {
+            const fadeElements = document.querySelectorAll('.fade-in:not(.visible)');
+            fadeElements.forEach(el => {
+                if (isElementInViewport(el)) {
+                    el.classList.add('visible');
+                }
+            });
+        }
+
+        function isElementInViewport(el) {
+            const rect = el.getBoundingClientRect();
+            return (
+                rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.85
+            );
+        }
+
+        // ===== METTRE À JOUR LA NAVIGATION ACTIVE AU SCROLL =====
+        function updateActiveNavOnScroll() {
+            const sections = document.querySelectorAll('section[id]');
+            let scrollPos = window.scrollY + 150;
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (scrollPos >= sectionTop && scrollPos <= sectionTop + sectionHeight) {
+                    updateActiveNavLink('#' + sectionId);
+                }
+            });
+        }
+
+        // ===== BOUTONS "VOIR PLUS" OPTIMISÉS =====
+        function initReadMoreButtons() {
+            const readMoreButtons = document.querySelectorAll('.read-more-btn');
+            const isMobile = window.innerWidth <= 768;
+            
+            readMoreButtons.forEach(button => {
+                const textContent = button.previousElementSibling;
+                
+                // Calculer la hauteur naturelle du contenu
+                textContent.style.maxHeight = 'none';
+                const naturalHeight = textContent.scrollHeight;
+                textContent.style.maxHeight = '';
+                
+                // Vérifier si le contenu dépasse la limite
+                const needsCollapsing = naturalHeight > 200;
+                
+                if (isMobile && needsCollapsing) {
+                    button.style.display = 'inline-block';
+                    
+                    // Si le contenu est déjà expansé (pas de classe collapsed), changer le texte
+                    if (!textContent.classList.contains('collapsed')) {
+                        button.textContent = 'Voir moins';
+                    } else {
+                        button.textContent = 'Voir plus...';
+                    }
+                    
+                    // Ajouter l'événement de clic
+                    button.addEventListener('click', function() {
+                        if (textContent.classList.contains('collapsed')) {
+                            textContent.classList.remove('collapsed');
+                            textContent.style.maxHeight = naturalHeight + 'px';
+                            button.textContent = 'Voir moins';
+                        } else {
+                            textContent.classList.add('collapsed');
+                            textContent.style.maxHeight = '150px';
+                            button.textContent = 'Voir plus...';
+                        }
+                    });
+                } else {
+                    button.style.display = 'none';
+                    textContent.classList.remove('collapsed');
+                    textContent.style.maxHeight = '';
+                }
+            });
+        }
+
+        // ===== INITIALISATION AU CHARGEMENT =====
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialiser la navigation active
+            updateActiveNavLink('#accueil');
+            
+            // Initialiser les boutons "Voir plus"
+            initReadMoreButtons();
+            
+            // Adapter les boutons "Voir plus" lors du redimensionnement
+            let resizeTimer;
+            window.addEventListener('resize', function() {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function() {
+                    initReadMoreButtons();
+                }, 250);
+            });
+        });
+
+        // ===== ANIMATION DES BOUTONS AU SURVOL =====
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('mouseenter', function(e) {
+                this.style.transform = 'translateY(-5px)';
+            });
+            
+            btn.addEventListener('mouseleave', function(e) {
+                this.style.transform = 'translateY(0)';
+            });
         });
     </script>
 </body>
